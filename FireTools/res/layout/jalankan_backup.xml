@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+	 android:layout_width="fill_parent"
+	 android:layout_height="fill_parent"
+	 android:background="#000000"
+	 android:orientation="vertical" >
+	 <ScrollView
+			android:id="@+id/scroll_view_backup"
+			android:layout_width="match_parent"
+			android:layout_height="0dp"
+			android:layout_weight="1">
+			<LinearLayout
+				 android:layout_width="match_parent"
+				 android:layout_height="wrap_content"
+				 android:orientation="vertical">
+				 <HorizontalScrollView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content">
+						<LinearLayout
+							 android:layout_width="wrap_content"
+							 android:layout_height="wrap_content"
+							 android:orientation="vertical">
+							 <TextView
+									android:id="@+id/text_view_stdo_backup"
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:textSize="12sp"
+									android:padding="3dp"
+									android:text="Working...\nPlease wait"
+									android:textColor="#33aa33">
+							 </TextView>
+							 <TextView
+									android:layout_width="wrap_content"
+									android:layout_height="wrap_content"
+									android:text=" "/>
+						</LinearLayout>
+				 </HorizontalScrollView>
+			</LinearLayout>
+	 </ScrollView>
+	<LinearLayout
+		android:layout_width="match_parent"
+		android:layout_height="wrap_content"
+		android:orientation="horizontal"
+		android:paddingTop="4dp"
+		android:paddingLeft="10dp"
+		android:background="#004000"
+		android:paddingRight="10dp">
+			<Button
+				 android:id="@+id/id_tombol_skip_partisi"
+				 android:layout_width="0dp"
+				 android:layout_weight="1"
+				 android:layout_height="wrap_content"
+				 android:text="Skip Task"
+				 android:adjustViewBounds="false"/>
+			<Button
+				 android:id="@+id/id_tombol_cancel_backup"
+				 android:layout_width="0dp"
+				 android:layout_weight="1"
+				 android:layout_height="wrap_content"
+				 android:text="Cancel Backup"
+				 android:adjustViewBounds="false"/>
+	 </LinearLayout>
+</LinearLayout>

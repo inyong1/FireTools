@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string name="hello">Hello World, MainActivity!</string>
+    <string name="app_name">XT530Tools</string>
+	 <string name="create_link_dalvik">
+			\n
+			File-file dalvik cache dari aplikasi-aplikasi system 
+			berada di memori internal (/data/dalvik-cache/*).\n
+			 \n
+		Tool ini akan memindahkan file-file tersebut ke partisi sd-ext 
+			sehingga memori internal menjadi lebih kosong. \n
+			\n
+		Lebih tepatnya tool ini akan me-link-an file-file tersebut 
+			ke partisi sd-ext. Seprti halnya link2sd me-link-an file-file 
+			dalvik-cache dari aplikasi-aplikasi yang anda install. \n
+			\n
+			Tool ini akan mengekskusi script move_cache.sh (modded by me) 
+			karya Suhu Andre (Indonesian @xda-developer). \n
+			\n
+			Tool ini juga bisa mengembalikan file-file dalvik-cache 
+			yang telah dipindahkan kembali ke tempatnya semula.\n
+			\n
+			Cara Menggunakan: \n
+			-------------------- \n
+			 Tap tombol create link \n
+			 untuk memindahkan file-file dalvik-cache system dari memori 
+			 internal ke memory sd-ext.\n
+			 \n
+			 Tap tombol un-link \n
+			 untuk mengemabalikan file-file tersebut kembali ke memori internal.
+			</string>
+
+			<string name="guide_clear_log">
+				\n
+				Clear Residual File To Free Up Internal Memory\n
+				------------------------------------\n
+				Seiring dengan masa pemakaian Handphone, system android meninggalkan file-file 
+				log, tombstone, system dropbox, dan lain-lain.\n
+				\n
+				File-file itu semakin lama semakin menumpuk dan menyita memory internal.\n
+				\n
+				Walaupun file-file tersebut sudah tidak digunakan oleh system, namun tidak otomatis dihapus.\n
+				\n
+				Tool ini akan membersihkan file-file tersebut sehingga memory internal menjadi bersih kembali.\n
+				\n
+				Tap tombol Clear Residual File untuk membersihkan file-file tersebut.
+			</string>
+</resources>

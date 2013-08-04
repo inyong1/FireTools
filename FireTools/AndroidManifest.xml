@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+	 package="inyong.xt530.tools"
+	 android:versionCode="1"
+	 android:versionName="1.0" >
+
+	 <uses-sdk 
+			android:minSdkVersion="8" 
+			android:targetSdkVersion="11" />
+
+	 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+
+	 <application
+			android:icon="@drawable/ic_launcher"
+			android:label="FIRE XT530 Tools" >
+			<activity
+				android:label="FIRE XT530 Tools v1.2 by inyong"
+				 android:name=".MainActivity" 	 >
+				 <intent-filter >
+						<action android:name="android.intent.action.MAIN" />
+						
+						<category android:name="android.intent.category.LAUNCHER" />
+				 </intent-filter>
+			</activity>
+			<activity
+				 android:label="Your Backup Files List"
+				 android:name=".backupMain"/>
+			<activity
+				 android:label="Running Up \'FIRE\' Script..."
+				 android:name=".BackupRun"
+				android:screenOrientation="portrait"	 />
+			<activity
+				 android:label="Membuat Link Dalvik-cache System"
+				 android:name=".CreateLinkDalvik"/>
+		 <activity
+			 android:label="Clear Residual File"
+			 android:name=".ClearSystemLog"/>
+		 <activity
+			 android:label="Membuat Link Folder Data Aplikasi"
+			 android:name=".CreateLinkData"/>
+			 
+	 </application>
+
+</manifest>

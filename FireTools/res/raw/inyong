@@ -1,0 +1,855 @@
+versi="EN-5.4.0 Translated by Nabil"
+# When using scripting tricks, ideas, or code snippets from here, GIVE PROPER CREDIT.
+# There are many things may look simple, but actually took a lot of time, trial, and error to get perfected.
+# So DO NOT remove credits, put your name on top, and pretend it's your creation.
+# That's called kanging and makes you a dumbass.
+# (quoted from v6 super charger script)
+ 
+# SCRIPT for nandroid Backup and resto (sdext)
+# By inyong, Indonesian moto xt530-er
+# inyong1 @ kaskus.co.id & xda.
+# Jika anda ingin mengambil ide (atau apapun) dari script ini,
+# harap beri kredit.
+# Di sini mungkin terlihat sederhana namun sebenarnya butuh waktu sangat lama
+# untuk try dan error sampai menemukan resep yg pas
+# Anda bisa dgn bebas menyebarkan script ini 
+# dgn memberi kredit kepada saya dan debgan tidak merubah isi script
+
+if [ ! -f /system/bin/busybox ] && [ ! -f /system/xbin/busybox ]; then 
+echo "Error....!"
+echo "You don't have busybox installed."
+echo "Busybox is needed to run fire's script"
+echo "You can get busybox from playstore"
+echo "Exiting..."
+exit 2 
+fi
+ 
+ CEK_APLLET(){
+if [ "$(busybox --list | grep $1)" == "" ]; then
+echo
+echo "Error...!"
+echo "Applet '$1' is not installed"
+echo "Please reinstall your busybox"
+echo "Exiting..."
+exit 2
+fi
+}
+ CEK_APLLET cp     #hapus 
+ CEK_APLLET df     #hapus 
+ CEK_APLLET stat   #hapus 
+ CEK_APLLET awk    #hapus 
+ CEK_APLLET tail   #hapus 
+ CEK_APLLET cut    #hapus 
+ CEK_APLLET cat    #hapus 
+ CEK_APLLET tar    #hapus 
+ CEK_APLLET sed    #hapus 
+ CEK_APLLET mv     #hapus 
+ CEK_APLLET mount  #hapus 
+ CEK_APLLET umount #hapus 
+ CEK_APLLET chmod  #hapus 
+ CEK_APLLET sleep  #hapus 
+ CEK_APLLET date   #hapus 
+ CEK_APLLET touch  #hapus 
+ CEK_APLLET pidof  #hapus 
+ CEK_APLLET mkdir  #hapus 
+ CEK_APLLET md5sum #hapus 
+ CEK_APLLET mkfs.ext2 #hapus 
+ 
+if [ "`busybox id -u`" != "0" ]; then  #hapus 
+  echo "Ups....!"          #hapus
+  echo "Error, Please Type su And Press Enter "    #hapus 
+  echo "And Run This script Again"  #hapus 
+  exit 2    #hapus 
+fi  #hapus 
+ 
+cd /system/bin
+if [ ! -f mkyaffs2image ]; then
+if [ -f mkyaffs2image* ]; then
+FILE="`ls *kyaffs2image*`"
+echo
+echo "ERROR...!" 
+echo "File mkyaffs2image detected in bin directory"
+echo "But the name is changed to"
+echo "$FILE"
+echo "Please rename the file To'mkyaffs2image'"
+echo "without extension"
+exit 2
+fi 
+echo " Ups....!"
+echo " You don't have mkyaffs2image file"
+echo " in /system/bin/"
+echo " ---------> Exiting..."
+exit 2
+else
+if [ ! -x mkyaffs2image ]; then mount -o remount,rw /dev/mtd/mtd8 /system; chmod 777 mkyaffs2image; fi
+fi
+
+mount -o remount,rw rootfs /; cp -r /system/bin/$0 /fire   #hapus
+if [ ! -f /fire ]; then    #hapus
+  echo "Error... "    #hapus 
+  echo "Failed to write to root folder"  /#hapus 
+  echo "Please Try Again..." #hapus 
+  exit 2    #hapus 
+fi  #hapus 
+
+arg="$1"; arg2="$2"  FIRE=$0 #hapus 
+echo "mn="$arg"" > /inyong; echo "arg2="$arg2"" >> /inyong; echo "FIRE=$FIRE" >> /inyong; #hapus 
+sed -e '/hapus/d' /fire >>/inyong; chmod 777 /inyong; sh /inyong; exit 2     #hapus
+
+log="/sdcard/fire.log"; echo "">$log
+LOG(){ echo "$*">>$log; }
+LOG "                ~={ FIRE }=~"
+LOG "~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~"
+LOG "SCRIPT for nandroid Backup and restore(sdext)"
+LOG "By:"
+LOG "inyong, Indonesian moto xt530-er"
+LOG "inyong1 @ kaskus.co.id & xda."
+LOG "NIC CatFiz Messenger: 2ED3D003F4 "
+LOG "" 
+LOG "---------------------------------------------"
+LOG "                USER MANUAL"
+LOG "---------------------------------------------"
+LOG "In addition to typing fire <enter>"
+LOG "Then select the code,"
+LOG "You can also enter the code"
+LOG "When Run the 'fire' Script"
+LOG "With the format of writing:" 
+LOG "     fire<spacebar><Task Code>"
+LOG ""
+LOG "Example:"
+LOG "To Perform the Full Backup you Can Type:"
+LOG "    fire f     <then enter>"
+LOG "Then the full backup will instantly run"
+LOG ""
+LOG "You Can Run fire script via PC (ADB)"
+LOG "With format:"
+LOG "    adb shell fire<spacebar><Task Code>"
+LOG "Example to reboot to CWM(bootmenu)"
+LOG "    adb shell fire c   <then enter>"
+LOG ""
+LOG "You also can do a SD-ext restore "
+LOG "Without Confirmation, by giving a second argument"
+LOG "Format: fire<spacebar>r<spacebar>n"
+LOG "        fire r n      <enter>"
+LOG "Restore Mode Without Confirmation,"
+LOG "if there is more than one file sd-ext.ext2.tar"
+LOG "will directly restore file number 1" 
+LOG "---------------------------------------------"
+ 
+peslog(){ pesan="$*"; jam=$(date +%H.%M.%S); echo "$jam $pesan"; echo "$jam $pesan" >>$log
+sleep 1; }
+
+memori(){ 
+  sisa=$(busybox df /mnt/sdcard | tail -1 | awk '{print $3}') 2>>$log
+  sisa=$(($sisa / 1024)) 2>>$log
+  peslog "Checking SDcard Free Space..." 2>>$log;
+  peslog "Remaining SDcard Free Space: $sisa"MB"" 2>>$log; } 2>>$log
+
+path="/sdcard/clockworkmod/backup/$(date +%Y-%m-%d.%H.%M.%S)"
+etee(){ echo "$*" | tee -a $log; }
+superpath(){ memori 2>>$log
+
+  peslog "Creating backup directory..."; busybox mkdir -p $path 2>>$log 
+  if [ ! -d $path ]; then peslog "Directory creation failed"; 
+     exit 2
+  else
+     peslog "Directory created successfully"
+     etee "---------------------------------------------"; sleep 1;
+     etee "==>BACKUP DIRECTORY:"
+     etee "SDcrd/$(echo $path | cut -d / -f 3,4,5)"; sleep 1;
+     etee "---------------------------------------------";
+     cp $log $path/manual.and.log 2>>$log;
+     if [ -f $path/manual.and.log ]; then log="$path/manual.and.log"; fi 2>>$log; sleep 1
+  fi
+}
+
+persen(){
+ if [ -f $path/$1 ]; then dst=$(stat -t $path/$1 | awk '{print $2}') 2>>$log
+   dst=$(expr $dst / 1024 / 1024) 2>>$log
+   if [ $dst -ge $total ]; then dst=$total; fi
+   prs=$(( $dst * 100 / $total ))
+   mb="MB"; busybox echo -en "         $prs% ($dst$mb of $total"MB")\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+   sleep 2
+ fi
+}
+
+bsystem(){ peslog "Backing up /system..."
+  cp /system/bin/mkyaffs2image /mk 2>>$log 
+  if [ ! -f /mk ]; then echo " Error..."; echo "Failed to write to root folder"; exit 2; fi
+ 
+  cd $path; total=$(($(busybox df /system | tail -1 | awk '{print $3}') / 1024))
+  if [ "$total" -gt "154" ]; then
+     etee "         Ups...!"
+     etee "         Your system partition is over limit"
+     etee "         free up your system by deleting "
+     etee "         several system apk"
+     OVER="$(( $total - 154))"
+     etee "         atleast  $OVER"MB" is needed to makesure"
+     etee "         you can restore your backe up file."
+     etee "         ------------------------------------"
+     etee "         OR...?"
+     etee "         Continue the backup process anyway?"
+     echo -n "         [y|n] : " | tee -a $log
+
+    if [ "$arg2" != "" ]; then etee ""
+       etee "         ----------------------------------" 
+       etee "         Continuing the backup process"; peslog "Backing up /system..." 
+    else read LANJUT
+       echo "Your answer is $LANJUT">>$log
+       if [ "$LANJUT" == "y" ] || [ "$LANJUT" == "Y" ]; then
+          etee "         ----------------------------------" 
+          etee "         OK "
+          etee "         Continuing the backup process"
+          peslog "Backing up /system..."
+       else
+          etee "         ----------------------------------" 
+          etee "         OK"
+          etee "         Backup process canceled"
+          exit 2 
+       fi
+    fi
+  fi
+
+  /mk /system system.yaffs2.img 2>/dev/null &
+  while [ "$(pidof mk)" != "" ]; do persen system.yaffs2.img; done
+  sleep 1
+  if [ ! -f system.yaffs2.img ]; then
+      peslog "Backup system failed"; peslog "Skipping to next backup..."
+  else
+      hasil=$(($(stat -t system.yaffs2.img | awk '{print $2}') / 1024 / 1024)) 2>>$log
+      if [ $hasil -ge $total ]; then
+       peslog "Backup /system...100% OK"
+      else 
+      peslog "Backup /system...$prs% OK"
+      fi
+ fi
+rm /mk 2>>$log
+}
+
+bdata(){ peslog "Backing up /data..."
+  cd /
+  total=$(($(busybox df /data | tail -1 | awk '{print $2}') / 1024))   2>>$log
+  if [ -f /aa/data/* ]; then umount /aa/data 2>>$log; fi
+  busybox mkdir -p /aa/data/sdext2 2>>$log
+  mount -t yaffs2 /dev/block/mtdblock11 /aa/data 2>>$log
+  cp system/bin/mkyaffs2image aa/mk 2>>$log; cd aa 2>>$log
+  ./mk data $path/data.yaffs2.img 2>/dev/null &
+  while [ "$(pidof mk)" != "" ]; do persen data.yaffs2.img; done
+  sleep 1; cd /
+  if [ -d /aa/data ]; then
+    umount /aa/data 2>>$log; rmdir /aa/data/sdext2 2>>$log; rmdir /aa/data 2>>$log; rm /aa/mk 2>>$log; rmdir /aa 2>>$log
+  fi
+  if [ -f mk ]; then rm mk 2>>$log; fi
+  cd $path
+  if [ ! -f data.yaffs2.img ]; then
+      peslog "Backup /data failed"; peslog "Skipping to next backup..."
+  else
+       hasil=$(($(stat -t data.yaffs2.img | awk '{print $2}') / 1024 / 1024)) 2>>$log
+      if [ $hasil -ge $total ]; then
+       peslog "Backup /data...100% OK  "
+      else 
+      peslog "Backup /data...$prs% OK   "
+      etee "         --------------------------------"
+      etee "     (!) Ups...!"
+      etee "         Backup data isn't 100% completed"
+      etee "         Try to restart your phone"
+      etee "         and re-launch the backup script"
+      etee "         --------------------------------"
+      fi
+ fi
+} 
+
+bcda(){ peslog "Backing up CDA..."; cd /hidden
+  total=$(($(busybox df /hidden/data | tail -1 | awk '{print $3}') / 1024)) 2>>$log; total=$((($total - 1))) 2>>$log
+  cp /system/bin/mkyaffs2image /hidden/mk 2>>$log
+  
+  if [ ! -f /hidden/mk ]; then peslog "Failed to write to /hidden/..."
+  else
+    chmod 755 /hidden/mk 2>>$log
+    ./mk data $path/CDA.yaffs2.img 2>/dev/null &
+    while [ "$(pidof mk)" != "" ]; do persen CDA.yaffs2.img; done
+  fi
+  cd $path
+  if [ ! -f CDA.yaffs2.img ]; then peslog "Backup CDA failed. Skipping...";
+  else
+     hasil=$(($(stat -t CDA.yaffs2.img | awk '{print $2}') / 1024 / 1024)) 2>>$log
+      if [ $hasil -ge $total ]; then
+       peslog "Backup CDA...100% OK  "
+      else 
+       peslog "Backup CDA...$prs% OK  "
+     fi
+  fi
+  if [ -f /hidden/mk ]; then rm /hidden/mk 2>>$log; fi
+}
+
+jenisext=$(mount | grep "data/sdext" | awk '{print $3}') 
+bsdext(){ peslog "Backing up SD-EXT..." 
+  cd /; total=$(($(busybox df /data/sdext2 | tail -1 | awk '{print $2}') / 1024)) 2>>$log
+  if [ ! -d /sd-ext ]; then
+    mkdir /sd-ext 2>>$log
+  else
+   if [ -d /sd-ext/* ]; then busybox umount /sd-ext 2>>$log; fi
+   if [ -f /sd-ext/* ]; then su -c 'umount /sd-ext' 2>>$log; fi
+  fi
+  mount -t $jenisext /dev/block/mmcblk0p2 /sd-ext 2>>$log  
+  tar cf $path/sd-ext.$jenisext.tar sd-ext 2>/dev/null &
+  while [ "$(pidof tar)" != "" ]; do persen sd-ext.$jenisext.tar; done 
+
+   cd $path
+   if [ ! -f *.tar ]; then
+      peslog "Backup SD-ext failed            "
+      peslog "Skipping to next task...      "
+   else
+      HASIL_ITEM=$(tar tf *tar | wc -l) 2>>$log
+      total_item=$(find /data/sdext2 | wc -l) 2>>$log
+	  
+      if [ $HASIL_ITEM -ge $total_item ]; then
+        peslog "Backup /sd-ext...100% OK    "
+        SIZE_HASIL=$(($(stat -t $path/*tar | awk '{print $2}') / 1024 / 1024 )) 2>>$log ;
+        MEM_ERR=$(($total - $SIZE_HASIL)) 2>>$log
+        if [ $MEM_ERR -gt 1 ]; then
+          LOG "Sekedar informasi"
+          LOG "Terdapat error pada memori sd-ext"
+          LOG "Sebesar : $MEM_ERR"MB""
+        fi 2>>$log
+      else
+       peslog "Backup /sd-ext...$prs% OK    "
+      fi
+   fi 
+cd /; umount sd-ext 2>>$log; rmdir sd-ext 2>>$log
+}
+
+MD5SUM(){ cd $path; touch ./nandroid.md5 2>>$log
+   for i in *
+   do
+     if [ $i != *md5 ] && [ $i != *log ]; then
+        md5sum $i >> nandroid.md5  2>/dev/null &
+        
+        while [ "$(pidof md5sum)" != "" ]; do
+           busybox echo -en "  md5sum $i inyong\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+           sleep 1
+           busybox echo -en "  md5sum $i       \b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+           sleep 1
+        done
+        
+        if [ "$(cat nandroid.md5 | grep "$1")" != "" ]; then
+           peslog "md5sum $i Success"
+        else
+           peslog "md5sum $i Failed"
+        fi 
+     fi
+   done
+   memori 2>>$log
+}
+
+
+#FUNGSI-FUNGSI RESTORE SD-EXT
+judul(){
+      peslog "Found "$1" file(s) in"
+      etee "         clockworkmod/backup/ directory"
+      etee "---------------------------------------------" 
+      etee "    No  |       FILE"
+      etee "---------------------------------------------"
+      }
+
+penutup(){ etee "---------------------------------------------"
+   echo -n "Enter file number that you want to restore: " | tee -a $log
+      }
+
+restore_ext(){ touch /data/sdext2/ngetes 2>>$log
+  if [ ! -f /data/sdext2/ngetes ]; then
+      etee ""
+      etee "Error...!"
+      etee "Cannot write to /data/sdext2/"
+      exit 2
+  else
+      rm /data/sdext2/ngetes 2>>$log
+  fi
+  if [ "$arg2" == "" ]; then
+    etee "       WARNING...! (IMPORTANT)"
+    etee "---------------------------------------------" 
+    etee "To restore SD-ext, Terminal emulator and"
+    etee "keyboard Applications must be installed in"
+    etee "internal or system memory."
+    etee "Unlink those applications if already linked."
+    etee "---------------------------------------------" 
+    echo -n "Continue restoration process? [y|n] : " | tee -a $log
+    read lanjut
+  else
+    lanjut="y"
+  fi
+  echo "Your answer is '$lanjut'" >>$log
+ if [ "$lanjut" == "y" ] || [ "$lanjut" == "Y" ]; then
+ etee "---------------------------------------------"  
+ peslog "Finding file sd-ext.$jenisext.tar..."
+  if [ ! -d /sdcard/clockworkmod/backup ]; then
+    etee "Ups....!"
+    etee "There isn't clockworkmod/backup"
+    etee "directori in SDcard"
+    etee "------>Exiting..."
+    exit 2
+  else
+    cd /sdcard/clockworkmod/backup
+    cp -r $log ./manual.and.restoratin.log 2>>$log
+    log="/sdcard/clockworkmod/backup/manual.and.restoratin.log"
+    find -name sd-ext* >semuatar
+    if [ "$(cat semuatar)" == "" ]; then
+      peslog "File sd-ext.$jenisext.tar not found."
+      etee "Process stopped."
+      exit 2
+    fi
+  fi
+
+  tar1=$(cat semuatar | head -1)
+  tar2=$(cat semuatar | head -2 | tail -1)
+  tar3=$(cat semuatar | head -3 | tail -1)
+  tar4=$(cat semuatar | head -4 | tail -1)
+  tar5=$(cat semuatar | head -5 | tail -1)
+
+  if [ "$tar2" == "$tar1" ]; then
+    peslog "1 file found in directori"
+    etee "         clockworkmod/backup/"
+    etee "      $tar1"
+    targettar="$tar1"
+  else
+    if [ "$tar3" == "$tar2" ]; then
+      totaltar="2"
+      judul 2
+      etee "    1   $tar1"
+      etee "    2   $tar2"
+      penutup
+    else
+      if [ "$tar4" == "$tar3" ]; then
+        totaltar="3"
+        judul 3
+        etee "    1   $tar1"
+        etee "    2   $tar2"
+        etee "    3   $tar3"
+        penutup
+      else
+        if [ "$tar5" == "$tar4" ]; then
+          totaltar="4"
+          judul 4
+          etee "    1   $tar1"
+          etee "    2   $tar2"
+          etee "    3   $tar3"
+          etee "    4   $tar4"
+          penutup
+        else
+          totaltar="5"
+          judul 5
+          etee "    1   $tar1"
+          etee "    2   $tar2"
+          etee "    3   $tar3"
+          etee "    4   $tar4"
+          etee "    5   $tar5"
+          penutup
+        fi
+      fi
+    fi
+    
+    ## Otomatis pilih tar ke-1 jika user memberi argument kedua
+    if [ "$arg2" != "" ]; then
+       etee ""
+       etee "Auto select no: 1"
+       pilihtar=1
+    else 
+       read pilihtar
+    fi
+    echo "Your answer is $pilihtar">>$log
+    if [ "$totaltar" == "2" ]; then
+      if [ "$pilihtar" == "1" ]; then
+        targettar=$tar1
+        etee "$tar1"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "2" ]; then
+        targettar=$tar2
+        etee "$tar2"
+        etee "has ben selected"
+        sleep 1 
+      else
+        etee ""
+        etee "Invalid file number entered"
+        etee "Relaunch the script"
+        exit 2
+      fi
+    fi
+    if [ "$totaltar" == "3" ]; then
+      if [ "$pilihtar" == "1" ]; then
+        targettar=$tar1
+        etee "$tar1"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "2" ]; then
+        targettar=$tar2
+        etee "$tar2"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "3" ]; then
+        targettar=$tar3
+        etee "$tar3"
+        etee "has ben selected"
+        sleep 1
+      else
+        etee ""
+        etee "Invalid file number entered"
+        etee "Relaunch the script"
+        exit 2
+      fi
+    fi
+    if [ "$totaltar" == "4" ]; then
+      if [ "$pilihtar" == "1" ]; then
+        targettar=$tar1
+        etee "$tar1"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "2" ]; then
+        targettar=$tar2
+        etee "$tar2"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "3" ]; then
+        targettar=$tar3
+        etee "$tar3"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "4" ]; then
+        targettar=$tar4
+        etee "$tar4"
+        etee "has ben selected"
+        sleep 1 
+      else
+        etee ""
+        etee "Invalid file number entered"
+        etee "Relaunch the script"
+        exit 2
+      fi
+    fi
+    if [ "$totaltar" == "5" ]; then
+      if [ "$pilihtar" == "1" ]; then
+        targettar=$tar1
+        etee "$tar1"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "2" ]; then
+        targettar=$tar2
+        etee "$tar2"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "3" ]; then
+        targettar=$tar3
+        etee "$tar3"
+        etee "has ben selected"
+        sleep 1
+      elif [ "$pilihtar" == "4" ]; then
+        targettar=$tar4
+        etee "$tar4"
+        etee "has ben selected"
+        sleep 1
+     elif [ "$pilihtar" == "5" ]; then
+        targettar=$tar5
+        etee "$tar5"
+        etee "has ben selected"
+        sleep 1
+      else
+        etee ""
+        etee "Invalid file number entered"
+        etee "Relaunch the script"
+        exit 2
+      fi
+    fi 
+  fi
+ 
+      etee ""
+      etee "     --->The last confirmation<---"
+      echo -n "Are you sure? [y|n] : " | tee -a $log
+      
+      # otomatis konfirmasi=yes jika argument kedua tdk null
+      if [ "$arg2" != "" ]; then
+         etee ""; etee "Auto select 'yes'"
+         sure="y"
+      else
+      read sure
+      fi
+      echo "Your answer is $sure">>$log
+      if [ "$sure" == "y" ] || [ "$sure" == "Y" ]; then
+         touch /data/sdext2/tes.txt 2>>$log
+         if [ ! -f /data/sdext2/tes.txt ]; then
+           etee "Error..."
+           etee "Can't write to /data/sdext2/"
+           etee "Exiting..." 
+           exit 2
+      #    busybox mount -o remount,rw /dev/block/mmcblk0p2 /data/sdext2 2>>$log
+         else
+           rm /data/sdext2/tes.txt 2>>$log
+           if [ -f /data/sdext2/tes.txt ]; then
+             etee "Error..."
+             etee "Can't write to /data/sdext2/"
+             etee "Exiting..."
+             exit 2
+           else
+             peslog "Erasing..."
+             busybox rm -r /data/sdext2/* 2>>$log
+             if [ -d /data/sdext2/* ] || [ -f /data/sdext2/* ]; then
+               peslog "Erasing failed"
+             fi
+ # memory error (me). jika setelah smua file dihapus masih terdeteksi penggunaan memory berarti itu=error             
+             me=$(busybox df /data/sdext2 | tail -1 | awk '{print $2}') 
+             me=$(($me / 1024))
+             
+             if [ "$jenisext" == "ext2" ] && [ $me -ge 1 ]; then # format dgn command mkfs.ext2 jila terdeteksi ada me dan jenisext=ext2
+               mb="MB"
+               etee "         (Memory sd-ext error $me$mb"
+               etee "         and must be formated)"
+               peslog "Unmounting..."
+               busybox umount -l /data/sdext2 2>>$log
+               peslog "Formating..."
+               busybox mkfs.ext2 -b 4096 /dev/block/mmcblk0p2 2>>$log 1>>$log
+               peslog "Remounting..."
+               mount -t ext2 -o rw /dev/block/vold/179:2 /data/sdext2 1>>$log 2>>$log
+               mount -o remount,rw /dev/block/mmcblk0p2 /data/sdext2  1>>$log 2>>$log
+            #   if [$(df | grep "data/sdext2") == ""]; then
+                busybox mount -t ext2 -o rw /dev/block/vold/179:2 /data/sdext2 1>>$log 2>>$log
+                busybox mount -o remount,rw /dev/block/mmcblk0p2 /data/sdext2  1>>$log 2>>$log 
+                busybox mount -o remount,rw /data/sdext2 2>>$log
+             #  fi
+             fi
+ 
+             me=$(busybox df /data/sdext2 | tail -1 | awk '{print $2}') # apakah masih ada error?
+             me=$(($me / 1024)) 
+             etee "         (memory sdext error : $me$mb)" 
+             
+             cd /sdcard/clockworkmod/backup
+             peslog "Extracting..."
+             mb="MB"
+             tar xf $targettar -C /data/sdext2/ 2>/dev/null &
+             while [ "$(pidof tar)" != "" ]; do
+ 
+             target=$(busybox df /data/sdext2 | tail -1 | awk '{print $2}') 
+             target=$(($target / 1024))
+             target=$(($target - $me))
+            
+             sumber=$(stat -t $targettar | awk '{print $2}')
+             sumber=$(expr $sumber / 1024 / 1024)
+          
+             if [ $target -ge $sumber ]; then
+                target=$sumber
+             fi
+              prs=$(($target * 100 / $sumber))
+              mb="MB"
+              busybox echo -en "         $prs% ($target$mb dari $sumber$mb)\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b\b"
+              done
+             echo
+             if [ "$prs" -lt 100 ]; then
+               peslog "Proses extract terhenti di $prs% "
+               etee "      coba lagi testore dari awal"
+               etee "      Jika percobaan restore kedua ato ketiga"
+               etee "      masih tidak 100%, sebaiknya coba"
+               etee "      restore ext melalui CWM."
+               etee "---------------------------------------------" 
+               etee "    CWM: Backup and restore-advanced restore-"
+               etee "    select file-restore sd-ext"
+               etee "---------------------------------------------" 
+               etee "Go to CWM right now...?"
+               echo -n "[y|n] : "
+               read cwm
+               LOG "Your answer is $cwm"
+               if [ "$cwm" == "y" ]; then reboot_cwm;
+               else etee "OK, Stay here" 
+                 exit 2
+               fi
+             else
+               cd /data/sdext2 
+               if [ -d sd-ext ]; then
+                 peslog "Restoring..."
+                 for i in sd-ext/*
+                 do
+                   mv $i .
+                 done
+                 rmdir sd-ext 2>>$log
+                 if [ ! -d sd-ext ]; then
+                   peslog "Restored successfully"
+                   etee ""
+                   etee "After the phone booting up" 
+                   etee "relink all dalvik and lib of all apps" 
+                   etee "The phone will restart in:"
+                   x="8"
+                   while [ "$x" -gt "-1" ]
+                   do
+                     busybox echo -en "  $x dtk\b\b\b\b\b\b\b"
+                     x=$(( $x - 1 ))
+                     sleep 1
+                   done
+                   reboot
+                 fi
+               else
+                 peslog "EXTRACT PROCESS FAILED"
+               fi
+             fi
+           fi
+         fi
+      else
+        etee ""
+        peslog "PROCESS CANCELED"
+        exit 2
+      fi 
+    else
+      peslog "PROCESS CANCELED"
+      exit 2
+    fi 
+}
+
+reboot_cwm(){
+  if [ ! -f /system/bootmenu/binary/bootmenu ] || [ ! -f /system/bootmenu/config/default_bootmode.conf ]; then
+    etee "Error...!"
+    etee "CWM not installed"
+    exit 2
+  else
+    mount -o remount,rw yaffs2 /system 2>>$log
+    cd /system/bootmenu/script/ 2>>$log
+  fi
+  
+  if [ -d /system/etc/init.d/ ] && [ -f /system/bin/sysinit ]; then
+     if [ ! -f /system/etc/init.d/97bootmenu ] && [ -f /system/bootmenu/script/97bootmenu ]; then
+        cp /system/bootmenu/script/97bootmenu /system/etc/init.d/
+        chmod 755 /system/etc/init.d/97bootmenu 
+     elif [ -f /system/etc/init.d/97bootmenu ]; then
+        chmod 755 /system/etc/init.d/97bootmenu 
+     else
+        etee "97bootmenu not found in path"
+        etee "Exiting..."
+        exit 2 
+     fi
+  else
+     etee "You don't have init.d suport"
+     etee "Exiting..."
+     exit 2
+  fi
+  
+  if [ "$(cat /system/etc/install-recovery.sh | grep "run-parts /system/etc/init.d")" == "" ]; then
+     echo "ditambaih nang inyong men init.d-ne aktif maning">>/system/etc/install-recovery.sh 2>>$log
+     echo "###### Bootstrapper ######">>/system/etc/install-recovery.sh 2>>$log 
+     echo "run-parts /system/etc/init.d">>/system/etc/install-recovery.sh 2>>$log 
+  fi
+  
+  # Mengembalikan default mode ke normal saat user pilih boot stock
+  if [ -f stock.sh ] && [ "$(cat stock.sh | grep "echo normal")" == "" ]; then
+    mv stock.sh stock.sh.bak 2>>$log 
+    sed -e '/start/d' stock.sh.bak > stock.sh 2>>$log 
+    echo "##Added by inyong for auto reboot cwm" >> stock.sh 2>>$log 
+    echo "echo normal >/system/bootmenu/config/default_bootmode.conf" >> stock.sh 2>>$log 
+    echo start >> stock.sh 2>>$log 
+    chmod 755 stock.sh 2>>$log 
+  fi
+ 
+  # Mengembalikan default mode ke normal saat user pilih cwm 
+  if [ -f recovery.sh ] && [ "$(cat recovery.sh | grep "echo normal")" == "" ]; then
+    mv recovery.sh recovery.sh.bak 2>>$log 
+    echo "#!/sbin/sh" > recovery.sh 2>>$log 
+    echo "##Added by inyong for auto reboot cwm" >> recovery.sh 2>>$log 
+    echo "echo normal >/system/bootmenu/config/default_bootmode.conf" >> recovery.sh 2>>$log 
+    sed -e '/#!/d' recovery.sh.bak >> recovery.sh 2>>$log 
+    chmod 755 recovery.sh 2>>$log 
+  fi
+  
+  # Mengembalikan default mode ke normal saat user pilih reboot
+  if [ -f reboot_command.sh ] && [ -f reboot_command.sh.bak ] && [ "$(cat reboot_command.sh | grep "echo normal")" != "" ]; 
+  then rm reboot_command.sh 2>>$log; mv reboot_command.sh.bak reboot_command.sh 2>>$log
+  else
+  if [ "$(cat reboot_command.sh | grep "echo normal")" != "" ]; then sed -i '/echo normal/d' reboot_command.sh; fi
+  fi
+ # if [ -f reboot_command.sh ] && [ "$(cat reboot_command.sh | grep "R= "normal"")" == "" ]; then
+ #   cp reboot_command.sh reboot_command.sh.bak
+  #  sed -i '/R=/s/=.*/="normal" #change by inyong for auto normal mode/' reboot_command.sh
+    #sed -i '/R=$2/s/$2.*/$2; R=normal #change by inyong for auto normal mode/' reboot_command.sh
+ # fi 
+ 
+  echo bootmenu >/system/bootmenu/config/default_bootmode.conf 2>>$log
+  PESAN=y 
+  if [ "$PESAN" != "x" ] && [ "$PESAN" != "X" ]; then 
+  etee "       !!!!--- TIPS---!!!!"
+  etee "To booting up from Bootmenu please select:"
+  etee "Boot -> Stock"
+  etee "OR"
+  etee "Recovery->Custom recovery->Reboot system now"
+  etee "--------------------------------------------"
+  etee "Press 'X' then enter to disable this message"
+  etee
+  etee "Or just press 'Enter'"
+  etee "to continue"
+  etee "--------------------------------------------"
+  sleep 1; echo -n "Enter your choice: " | tee -a $log
+  if [ "$arg2" == "" ]; then read Ten; else sleep 0; fi
+  echo "Your answer is $Ten">>$log
+  if [ "$Ten" == "x" ] || [ "$Ten" == "X" ]; then
+     etee "You will not see this message anymore."
+     sed -i '/PESAN=/s/=./=x/' /system/bin/$FIRE; fi  
+  fi
+  etee ""; etee "rebooting to bootmenu..."; reboot 2>>$log
+}
+
+menu(){ etee ""; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; 
+etee "ENTER A TASK CODE...!"
+etee "---------------------------------------------"
+etee " CODE  |       TASK"
+etee "---------------------------------------------"
+etee "  f    Full backup (System, Data, sdext)"
+etee "  sd   Backup System and Data"
+etee "  s    Backup System"
+etee "  d    Backup Data"
+#etee "  a    Backup CDA (boot animation, etc)" 
+etee "  e    Backup SD-ext"
+etee "       --------------------------------------"
+etee "  r    RESTORE SD-ext (from backed up file)"
+etee "       --------------------------------------"
+etee "  c    Auto Reboot to CWM (Boot Menu)"
+etee "---------------------------------------------"
+echo -n "Enter the code here: " | tee -a $log
+
+if [ "$mn" == "" ]; then read mn; fi
+}
+
+bekerja(){ etee ""; echo "Your answer is '$mn'" >>$log; 
+echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo; echo;  echo; echo 
+#  echo "">>$log; echo "FIND BUSYBOX (/SYSTEM):">>$log 2>>$log; find /system -name busybox >>$log 2>>$log
+#  echo "">>$log; echo "WHICH BUSYBOX:">>$log 2>>$log; which busybox >>$log 2>>$log
+#  echo "(BUSYBOX VERSION):">>$log 2>>$log; busybox | head -1 >>$log 2>>$log
+ etee ""
+ etee "=============================================" 
+ etee " ||  FIRE v: $versi ||"
+ etee " ||  Script for nandroid backup           ||"
+ etee " ||  inyong FIRE XT530-er @KASKUS.co.id   ||"
+ etee " ||  Indonesian FireXT530-ers Community   ||"
+ etee " ||  WWW.FOR-FREE.CO.NR                   ||"
+ etee "=============================================" 
+  case $mn in
+    f|F)superpath; bsystem; bdata; bsdext; MD5SUM;;
+    
+    sd|Sd|sD|SD)superpath; bsystem; bdata; MD5SUM;;
+
+    s|S)superpath; bsystem; MD5SUM;;
+
+    d|D)superpath;  bdata; MD5SUM;;
+
+#   a|A)superpath; bcda; MD5SUM;; fungsi backup cda dinonaktifkan
+   
+    e|E)superpath; bsdext; MD5SUM;;
+ 
+    r|R)restore_ext;;
+
+    c|C)reboot_cwm;;
+       
+    *)
+    etee ""; etee "Wrong code entered...!"
+    etee "Relaunch the script"
+    etee "Exiting..."; exit 2;;
+esac
+}
+
+####################  lets go  ###
+
+                menu; bekerja; cp $log /fire_tool_backup.log
+
+####### end of script
+

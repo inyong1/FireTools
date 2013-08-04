@@ -1,0 +1,129 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#000000"
+    android:orientation="vertical" >
+	<ScrollView
+		android:layout_width="match_parent"
+		android:layout_height="match_parent">
+		<LinearLayout
+			android:layout_width="match_parent"
+			android:layout_height="wrap_content"
+			android:orientation="vertical">
+			<LinearLayout
+				android:id="@+id/layout_backup_tool"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#333333"
+				android:orientation="vertical"
+				android:padding="5dip">
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Nandroid (ROM) Backup Tool"
+					android:textStyle="bold"
+					android:textColor="#339933"
+					android:textSize="20dp"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Backup system, userdata, dan sd-ext dengan metode backup CWM"/>
+			</LinearLayout>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="#555555"/> 
+			<LinearLayout
+				android:id="@+id/layout_link_folder_data"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="5dip">
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Create Link Application\'s Data "
+					android:textStyle="bold"
+					android:textColor="#339933"
+					android:textSize="20dp"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Link-an folder data aplikasi-aplikasi agar memori internal lebih kosong"/>
+			</LinearLayout>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="#555555"/>
+			<LinearLayout
+				android:id="@+id/layout_link_dalvik_system"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#333333"
+				android:orientation="vertical"
+				android:padding="5dip">
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Create Link System\'s Dalvik-Cache"
+					android:textStyle="bold"
+					android:textColor="#339933"
+					android:textSize="20dp"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Link-an dalvik cache aplikasi system agar memori internal lebih kosong"/>
+			</LinearLayout>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="#555555"/> 
+			<LinearLayout
+				android:id="@+id/layout_clear_system_log"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="vertical"
+				android:padding="5dip">
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Clear System Log"
+					android:textStyle="bold"
+					android:textColor="#339933"
+					android:textSize="20dp"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Bersihkan file-file log system yang sudah tidak terpakai"/>
+			</LinearLayout>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="#555555"/>
+			<LinearLayout
+				android:id="@+id/layout_restart"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:background="#333333"
+				android:orientation="vertical"
+				android:padding="5dip">
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Restart and Auto CWM Mode"
+					android:textStyle="bold"
+					android:textColor="#339933"
+					android:textSize="20dp"/>
+				<TextView
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:text="Restart, stock recovery, CWM, fastboot"/>
+			</LinearLayout>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="#555555"/> 
+		</LinearLayout>
+	</ScrollView>
+</LinearLayout>
