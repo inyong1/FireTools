@@ -20,6 +20,7 @@
 		android:id="@+id/id_list_view_link_data_linked"
 		android:layout_width="match_parent"
 		android:layout_weight="1"
+		
 		android:layout_height="wrap_content"/>
 <!--	<Button
 		android:id="@+id/id_tombol_link_data"

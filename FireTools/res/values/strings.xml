@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <string name="hello">Hello World, MainActivity!</string>
+<!--    <string name="hello">Hello World, MainActivity!</string> -->
     <string name="app_name">XT530Tools</string>
 	 <string name="create_link_dalvik">
 			\n
@@ -46,4 +46,22 @@
 				\n
 				Tap tombol Clear Residual File untuk membersihkan file-file tersebut.
 			</string>
+			
+			<string name="tap_file_backup">
+				Tap dan tahan pada file backup untuk pilihan
+			</string>
+			
+			<string name="tidak_ada_file_backup">
+				File backup tidak ditemukan
+			</string>
+			
+	<string name="titel_konfirmasi_restore_backup">Konfirmasi...!</string>
+	<string name="pesan_konfirmasi_restore_backup">
+		Setelah proses restart HH harus direstart agar hasil restore terbaca oleh system.
+		</string>
+		<string name="backup_run_harap_tunggu">
+			Please wait
+			\nHarap tunggu sampai proses backup selesai
+			\natau tap homeKey agar proses backup berjalan di background
+		</string>
 </resources>

@@ -27,7 +27,8 @@
 									android:textSize="12sp"
 									android:padding="3dp"
 									android:text="Working...\nPlease wait"
-									android:textColor="#33aa33">
+									android:textColor="#33aa33"
+									android:keepScreenOn="true">
 							 </TextView>
 							 <TextView
 									android:layout_width="wrap_content"

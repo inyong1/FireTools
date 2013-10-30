@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="versi">v2.1</string>
+		<string name="pembuat">
+			Created by inyong (XT530 user)
+			\nModded by (your name here)
+			\nDonasi : Kirim pulsa ke 081809010218"
+		</string>
+	<string name="logupdate">
+		Perubahan :
+		\n-------------
+		\n
+		\nAlhamdulillah
+		\n
+		\nV2.1
+		\n- Bug fc saat masuk menu nandroid backup solved.
+		\n- Saat proses nandroid backup fungsi tombol back dinonaktifkan.
+		
+		\n
+		\nv2.0
+		\n- Penambahan fungsi Restart Cepat
+		\n- Penambahan fungsi backup dan restore untuk pesan dan contact.
+		\n- penambahan icon pada masing item pada menu utama.
+		\n- Peningkatan fungsi perhitungan size folder data pada Create link application data tools.
+		\n- Lampu layar otomatis tetap hidup saat melakukan nandroid backup (always on screen).
+		\n
+		\nV1.3
+		\n-Sekarang setelah menghapus folder backup dan setelah melakukan backup list folder otomatis diperbarui
+		\n
+		\nv1.2
+		\n-improvement in link and restore dalvik-cache script
+		\n
+		\nV1.1
+		\n-bug link folder data solved\n- Jika masih banyak kekurangan harap maklum
+		\n
+		\n- Salam oprekkers...!")
+	</string>
+	
+</resources>

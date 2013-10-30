@@ -15,7 +15,7 @@ import com.stericson.RootTools.exceptions.*;
 public class MainActivity extends Activity implements OnClickListener
 {
 	public String  pathData = Environment.getDataDirectory().toString() + "/data/inyong.xt530.tools/data";
-	LinearLayout ly_backup, ly_linkData, ly_linkDalvik, ly_clearLog, ly_restart;
+	LinearLayout ly_backup, ly_linkData, ly_linkDalvik, ly_clearLog, ly_restart, ly_smsContact;
 	boolean cwmInstalled = false, inyongScript = false;
 
     /** Called when the activity is first created. */
@@ -29,6 +29,7 @@ public class MainActivity extends Activity implements OnClickListener
 		ly_linkDalvik = (LinearLayout) findViewById(R.id.layout_link_dalvik_system); ly_linkDalvik.setOnClickListener(this);
 		ly_clearLog   = (LinearLayout) findViewById(R.id.layout_clear_system_log);   ly_clearLog.setOnClickListener(this);
 	    ly_restart    = (LinearLayout) findViewById(R.id.layout_restart);            ly_restart.setOnClickListener(this);
+		ly_smsContact = (LinearLayout) findViewById(R.id.layout_sms_dan_contact_tools); ly_smsContact.setOnClickListener(this);
 		buatFolderData();
     }
 
@@ -44,31 +45,19 @@ public class MainActivity extends Activity implements OnClickListener
 			new Handler().postDelayed(new Runnable(){@Override
 					public void run()
 					{
-						final File notif = new File(pathData + "/notif_versi_1.2");
+						String ver = getResources().getString(R.string.versi);
+						final File notif = new File(pathData + "/notif" + ver);
 						if (!notif.exists())
-						{
-							//	Toast.makeText(MainActivity.this, notif.toString(), Toast.LENGTH_SHORT).show();
-							AlertDialog.Builder a = new AlertDialog.Builder(MainActivity.this);
-							a.setCancelable(false);
-							a.setTitle("FIRE TOOLS V1.2");
-							a.setMessage("- Alhamdulillah\n- v1.2 improvement in link & restore dalvik-cache script\n- V1.1 bug link folder data solved\n- Jika masih banyak kekurangan harap maklum\n\n- Salam oprekkers...!");
-							a.setPositiveButton("OK", new DialogInterface.OnClickListener(){@Override
-									public void onClick(DialogInterface d, int i)
-									{
-										new Thread(new Runnable(){@Override
-												public void run()
-												{
-													fr.hapusScritLama();
-													try
-													{
-														notif.createNewFile();
-													}
-													catch (IOException e)
-													{}
-												}}).start();
-									}}).show();
+						{					
+							try
+							{
+								notif.createNewFile();
+							}
+							catch (IOException e)
+							{}
+							tampilkanAbout();
 						}
-					}}, 500);
+					}}, 1500);
 		}
 		else
 		{
@@ -89,6 +78,7 @@ public class MainActivity extends Activity implements OnClickListener
 					case R.id.layout_restart: restart(); break;
 					case R.id.layout_clear_system_log: goToClearLog(); break;
 					case R.id.layout_link_folder_data: goToLinkData(); break;
+					case R.id.layout_sms_dan_contact_tools: goToSmsContactTools(); break;
 				}
 			}
 			else
@@ -100,6 +90,11 @@ public class MainActivity extends Activity implements OnClickListener
 		{
 			dialogError("Error...!", "Anda tidak memilikih hak Super User");
 		}
+	}
+
+	private void goToSmsContactTools()
+	{
+		startActivity(new Intent(this, SmsContactTools.class));
 	}
 
 	private void goToLinkData()
@@ -128,8 +123,8 @@ public class MainActivity extends Activity implements OnClickListener
 
 	//fungsi restart
 	FungsiRestart fr=new FungsiRestart();
-	String[] cmdRestart = new String[]{"reboot",                   "reboot recovery",                     "inyong c n",                   "reboot bootloader"};
-	String[] opsiRestart= new String[]{"Restart\n(normal restart)","Stock Recovery Mode\n(Recovery bawaan)", "Custom Recovery Mode\n(CWM)","Fastboot Mode" };
+	String[] cmdRestart = new String[]{"reboot",                   "rebootCepat",  "reboot recovery",                     "inyong c n",                   "reboot bootloader"};
+	String[] opsiRestart= new String[]{"Restart\n(normal restart)","Quick Restart\n(Restart Cepat)","Stock Recovery Mode\n(Recovery bawaan)", "Custom Recovery Mode\n(CWM)","Fastboot Mode" };
 	public void restart()
 	{
 
@@ -177,6 +172,10 @@ public class MainActivity extends Activity implements OnClickListener
 				dialogError("ERROR...!", "Handphone anda belum terinstall CWM");
 			}
 		}
+		else if (s.equals("rebootCepat"))
+		{
+			restartCepat();
+		}
 		else
 		{
 			if (RootTools.isAccessGiven())
@@ -187,6 +186,27 @@ public class MainActivity extends Activity implements OnClickListener
 			{
 				dialogError("ERROR...!", "Anda tidak mendapat hak Super User");
 			}
+		}
+	}
+
+	private void restartCepat()
+	{
+		
+		if (RootTools.isAccessGiven())
+		{
+			ProgressDialog.Builder pd = new ProgressDialog.Builder(this);
+			pd.setCancelable(false);
+			pd.setMessage("Quick restarting....").show();
+
+			new Thread(new Runnable(){@Override 
+					public void run()
+					{
+					RootTools.restartAndroid();
+					}}).start();
+		}
+		else
+		{
+			dialogError("ERROR...!", "Anda tidak mendapat hak Super User");
 		}
 	}
 
@@ -204,7 +224,7 @@ public class MainActivity extends Activity implements OnClickListener
 		if (!petunjuk_bootmenu.exists())
 		{
 			AlertDialog.Builder ab =new AlertDialog.Builder(this);
-			ab.setCancelable(false);
+			ab.setCancelable(true);
 			ab.setTitle("PESAN SEKALI TAMPIL");
 			ab.setMessage("Untuk booting dari bootmenu,\nPilih menu Recovery -> Custom recovery -> Reboot system now\nAtau\nPilih menu Boot -> Stock");
 			ab.setPositiveButton("OK", new DialogInterface.OnClickListener(){@Override
@@ -249,5 +269,25 @@ public class MainActivity extends Activity implements OnClickListener
 	public void onBackPressed()
 	{
 		finish();
+	}
+
+	public boolean onCreateOptionsMenu(Menu mymenu)
+	{
+		//mengaktifkan file xml untuk menu yg ada di res/menu/namafile
+		getMenuInflater().inflate(R.menu.mainmenu, mymenu);
+		return super.onCreateOptionsMenu(mymenu);
+
+	}
+	//mendeteksi menu item yg diklik
+	public boolean onOptionsItemSelected(MenuItem menu)
+	{
+		tampilkanAbout();
+		return true;
+	}
+
+	private void tampilkanAbout()
+	{
+		Intent about = new Intent(this, About.class);
+		startActivity(about);
 	}
 }

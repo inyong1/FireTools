@@ -1,4 +1,5 @@
 package inyong.xt530.tools;
+
 import android.app.*;
 import android.content.*;
 import android.os.*;
@@ -9,6 +10,7 @@ import com.stericson.RootTools.*;
 import com.stericson.RootTools.execution.*;
 import java.io.*;
 import java.util.*;
+
 public class CreateLinkData extends Activity
 {
 	FungsiLinkData fld = new FungsiLinkData();
@@ -37,7 +39,7 @@ public class CreateLinkData extends Activity
 	{
 		listviewLinked.setOnItemClickListener(new AdapterView.OnItemClickListener(){
 				public void onItemClick(AdapterView<?> p1, View p2, int p3, long p4)
-				{
+				{ 
 					Toast.makeText(getApplicationContext(), "Tap dan tahan (long press)\n pada nama folder", Toast.LENGTH_LONG).show();
 				}	
 			});
@@ -70,7 +72,7 @@ public class CreateLinkData extends Activity
 						tv2.post(new Runnable(){@Override
 								public void run()
 								{
-									tv2.setText("Menghitung " + fld.getFolderTerhitung() + "/" + fld.getUnlinkedFolder() + " Folder");
+									tv2.setText("Menghitung " + fld.getFolderTerhitung() + "/" + fld.getUnlinkedFolder() + " Folder\n"+fld.getFolderDihitung());
 								}});
 						try
 						{

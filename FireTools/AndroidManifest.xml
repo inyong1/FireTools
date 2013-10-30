@@ -1,44 +1,67 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-	 package="inyong.xt530.tools"
-	 android:versionCode="1"
-	 android:versionName="1.0" >
+	package="inyong.xt530.tools"
+	android:versionCode="2"
+	android:versionName="@string/versi" >
 
-	 <uses-sdk 
-			android:minSdkVersion="8" 
-			android:targetSdkVersion="11" />
+	<uses-sdk 
+		android:minSdkVersion="8" 
+		android:targetSdkVersion="14" />
 
-	 <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
+	<uses-permission android:name="android.permission.READ_CONTACTS"/>
+	<uses-permission android:name="android.permission.WRITE_CONTACTS"/>
+	<uses-permission android:name="android.permission.WAKE_LOCK"/>
+	<uses-permission android:name="android.permission.READ_SMS"/>
+	<uses-permission android:name="android.permission.WRITE_SMS"/>
 
-	 <application
-			android:icon="@drawable/ic_launcher"
-			android:label="FIRE XT530 Tools" >
-			<activity
-				android:label="FIRE XT530 Tools v1.2 by inyong"
-				 android:name=".MainActivity" 	 >
-				 <intent-filter >
-						<action android:name="android.intent.action.MAIN" />
-						
-						<category android:name="android.intent.category.LAUNCHER" />
-				 </intent-filter>
-			</activity>
-			<activity
-				 android:label="Your Backup Files List"
-				 android:name=".backupMain"/>
-			<activity
-				 android:label="Running Up \'FIRE\' Script..."
-				 android:name=".BackupRun"
-				android:screenOrientation="portrait"	 />
-			<activity
-				 android:label="Membuat Link Dalvik-cache System"
-				 android:name=".CreateLinkDalvik"/>
-		 <activity
-			 android:label="Clear Residual File"
-			 android:name=".ClearSystemLog"/>
-		 <activity
-			 android:label="Membuat Link Folder Data Aplikasi"
-			 android:name=".CreateLinkData"/>
-			 
-	 </application>
+	<supports-screens 
+		largeScreens="true" 
+		normalScreens="true" 
+		anyDensity="true" 
+		xlargeScreens="true" 
+		smallScreens="true">
+	</supports-screens>
+
+	<application
+		android:icon="@drawable/ic_launcher"
+		android:label="FIRE XT530 Tools" >
+		<activity
+			android:label="Fire XT530 Tools"
+			android:name=".MainActivity" 	 >
+			<intent-filter >
+				<action android:name="android.intent.action.MAIN" />
+				<category android:name="android.intent.category.LAUNCHER" />
+			</intent-filter>
+		</activity>
+		<activity
+			android:label="Your Backup Files List"
+			android:name=".backupMain"/>
+		<activity
+			android:label="Running Up \'FIRE\' Script..."
+			android:name=".BackupRun"
+			android:screenOrientation="portrait"	 />
+		<activity
+			android:label="Membuat Link Dalvik-cache System"
+			android:name=".CreateLinkDalvik"/>
+		<activity
+			android:label="Clear Residual File"
+			android:name=".ClearSystemLog"/>
+		<activity
+			android:label="Membuat Link Folder Data Aplikasi"
+			android:name=".CreateLinkData"/>
+		<activity
+			android:name=".About"
+			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
+			android:screenOrientation="portrait"
+		/>
+		<activity
+			android:label="BackUp and Restore Tool for SMS and Contact"
+			android:name=".SmsContactTools"
+			android:theme="@android:style/Theme.NoTitleBar"
+		/>
+
+	</application>
 
 </manifest>

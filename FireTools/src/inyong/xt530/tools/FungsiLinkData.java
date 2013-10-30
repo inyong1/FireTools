@@ -16,6 +16,17 @@ public class FungsiLinkData
 	public boolean hitung =true, unlingked = false, linked = false;
 	public int unlinkedFolder=0;
 	public int folderTerhitung =0;
+	public String folderDihitung="---";
+
+	public void setFolderDihitung(String folderDihitung)
+	{
+		this.folderDihitung = folderDihitung;
+	}
+
+	public String getFolderDihitung()
+	{
+		return folderDihitung;
+	}
 
 	public boolean isHitung()
 	{
@@ -96,6 +107,7 @@ public class FungsiLinkData
 						}
 					}
 					folderTerhitung += 1;
+					folderDihitung = namaFolder;
 				}
 			}
 		}

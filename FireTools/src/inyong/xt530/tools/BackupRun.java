@@ -16,11 +16,13 @@ import android.graphics.*;
 
 public class BackupRun extends Activity implements OnClickListener
 {
-Typeface tf;
+	Typeface tf;
 	Button skip, cancel;
 	String firetask;
 	TextView tv;
 	ScrollView sv;
+	boolean backupSedangBerjalan;
+
     /** Called when the activity is first created. */
     @Override
     public void onCreate(Bundle savedInstanceState)
@@ -30,7 +32,6 @@ Typeface tf;
 
 		tv = (TextView) findViewById(R.id.text_view_stdo_backup);
 		sv = (ScrollView) findViewById(R.id.scroll_view_backup);
-
 		skip = (Button) findViewById(R.id.id_tombol_skip_partisi); skip.setOnClickListener(this);
 		cancel = (Button) findViewById(R.id.id_tombol_cancel_backup); cancel.setOnClickListener(this);
 		startBackup();
@@ -48,6 +49,7 @@ Typeface tf;
 			new Thread(new Runnable(){@Override
 					public void run()
 					{
+						backupSedangBerjalan = true;
 						tv.post(new Runnable(){
 								@Override
 								public void run()
@@ -158,6 +160,7 @@ Typeface tf;
 								}});
 						cancelBackup();
 						openLogFile();
+						backupSedangBerjalan = false;
 					}
 					else
 					{
@@ -183,26 +186,31 @@ Typeface tf;
 						try
 						{
 							List<String> ls = RootTools.sendShell("pidof mk; pidof tar; pidof md5sum", 0);
-							for(String i : ls){
-								if(i.length() > 3){
+							for (String i : ls)
+							{
+								if (i.length() > 3)
+								{
 									ID = true;
 								}
 							}
 						}
 						catch (Exception e)
 						{}
-		
-							tv.post(new Runnable(){@Override
-									public void run()
-									{
-										if(ID){
-											skip.setEnabled(true);
-										}else{
-											skip.setEnabled(false);
-										}
 
-									}});
-			
+						tv.post(new Runnable(){@Override
+								public void run()
+								{
+									if (ID)
+									{
+										skip.setEnabled(true);
+									}
+									else
+									{
+										skip.setEnabled(false);
+									}
+
+								}});
+
 						try
 						{
 							Thread.sleep(500);
@@ -217,8 +225,14 @@ Typeface tf;
 	{
 		switch (tombol.getId())
 		{
-			case R.id.id_tombol_skip_partisi: skipPartisi(); break;
-			case R.id.id_tombol_cancel_backup: skipPartisi();ok = false; break;
+			case R.id.id_tombol_skip_partisi: 
+				skipPartisi(); 
+				break;
+			case R.id.id_tombol_cancel_backup:
+				skipPartisi();
+				ok = false; 
+				backupSedangBerjalan = false;
+				break;
 		}
 	}
 
@@ -280,6 +294,17 @@ Typeface tf;
 						sv.fullScroll(View.FOCUS_DOWN);
 					}});
 
+		}
+		
+	}
+	
+	public void onBackPressed(){
+	//	super.onBackPressed();
+		if(!backupSedangBerjalan){
+			finish();
+		}
+		else{
+			Toast.makeText(this,getResources().getString(R.string.backup_run_harap_tunggu),Toast.LENGTH_LONG).show();
 		}
 	}
 }
