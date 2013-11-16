@@ -57,7 +57,7 @@ public class MainActivity extends Activity implements OnClickListener
 							{}
 							tampilkanAbout();
 						}
-					}}, 1500);
+					}}, 1000);
 		}
 		else
 		{

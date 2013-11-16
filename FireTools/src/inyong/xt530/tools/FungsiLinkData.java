@@ -186,7 +186,7 @@ public class FungsiLinkData
 		CommandCapture cmd;
 		if (RootTools.isBusyboxAvailable() && RootTools.isAccessGiven())
 		{
-			cmd = new CommandCapture(0, "busybox mkdir -p /data/sdext2/data.data", "busybox cp -pr /data/data/" + folderName + " /data/sdext2/data.data/");
+			cmd = new CommandCapture(0, "busybox mkdir -p /data/sdext2/data.data", "busybox cp -Lpr /data/data/" + folderName + " /data/sdext2/data.data/");
 			try
 			{
 				RootTools.getShell(true).add(cmd).waitForFinish();
@@ -195,7 +195,7 @@ public class FungsiLinkData
 			{}
 			if (new File("/data/sdext2/data.data/" + folderName).exists())
 			{
-				cmd = new CommandCapture(0, "rm -r /data/data/" + folderName, "ln -s /data/sdext2/data.data/" + folderName + " /data/data/" + folderName);
+				cmd = new CommandCapture(0, "busybox rm -r /data/data/" + folderName, "busybox ln -s /data/sdext2/data.data/" + folderName + " /data/data/" + folderName);
 				try
 				{
 					RootTools.getShell(true).add(cmd).waitForFinish();
@@ -252,7 +252,7 @@ public class FungsiLinkData
 		{
 			try
 			{
-				RootTools.getShell(true).add(new CommandCapture(0, "rm -r /data/data/" + folderName, "busybox cp -pr " + fullPath + " /data/data/")).waitForFinish();
+				RootTools.getShell(true).add(new CommandCapture(0, "busybox rm -r /data/data/" + folderName, "busybox cp -pr " + fullPath + " /data/data/")).waitForFinish();
 			}
 			catch (Exception e)
 			{}
@@ -271,7 +271,7 @@ public class FungsiLinkData
 				{
 					try
 					{
-						RootTools.getShell(true).add(new CommandCapture(0, "rm -r " + fullPath)).waitForFinish();
+						RootTools.getShell(true).add(new CommandCapture(0, "busybox rm -r " + fullPath)).waitForFinish();
 						tutupShell();
 					}
 					catch (Exception e)

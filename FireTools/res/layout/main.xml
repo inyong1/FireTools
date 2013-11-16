@@ -18,6 +18,7 @@
 				android:orientation="horizontal"
 				android:clickable="true"
 				android:background="#333333"
+				
 				android:padding="5dip"
 				android:gravity="center_vertical">
 				<ImageView

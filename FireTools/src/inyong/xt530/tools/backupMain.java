@@ -146,9 +146,9 @@ public class backupMain extends ListActivity implements OnClickListener
 
 	}
 
+	
 	public void onListItemClick(ListView lv, View v, final int p, long id)
 	{
-
 		String[] folders = arrayFolder[p].split(" ");
 		final String folder = folders[0];
 		File path =new File(Environment.getExternalStorageDirectory().toString() + "/clockworkmod/backup/" + folder);

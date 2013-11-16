@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="versi">v2.1</string>
+	<string name="versi">v2.3</string>
 		<string name="pembuat">
 			Created by inyong (XT530 user)
 			\nModded by (your name here)
@@ -12,17 +12,24 @@
 		\n
 		\nAlhamdulillah
 		\n
+		\nV2.3
+		\n-Percobaan perbaikan fungsi link data aplikasi (2).
+		\n-Terimakasih kepada Suhu Adhyt yang udah bantuin experiment.
+		\n
+		\nV2.2
+		\n-Percobaan perbaikan fungsi link data aplikasi.
+		\n
 		\nV2.1
-		\n- Bug fc saat masuk menu nandroid backup solved.
-		\n- Saat proses nandroid backup fungsi tombol back dinonaktifkan.
+		\n-Bug fc saat masuk menu nandroid backup solved.
+		\n-Saat proses nandroid backup fungsi tombol back dinonaktifkan.
 		
 		\n
 		\nv2.0
-		\n- Penambahan fungsi Restart Cepat
-		\n- Penambahan fungsi backup dan restore untuk pesan dan contact.
-		\n- penambahan icon pada masing item pada menu utama.
-		\n- Peningkatan fungsi perhitungan size folder data pada Create link application data tools.
-		\n- Lampu layar otomatis tetap hidup saat melakukan nandroid backup (always on screen).
+		\n-Penambahan fungsi Restart Cepat
+		\n-Penambahan fungsi backup dan restore untuk pesan dan contact.
+		\n-penambahan icon pada masing item pada menu utama.
+		\n-Peningkatan fungsi perhitungan size folder data pada Create link application data tools.
+		\n-Lampu layar otomatis tetap hidup saat melakukan nandroid backup (always on screen).
 		\n
 		\nV1.3
 		\n-Sekarang setelah menghapus folder backup dan setelah melakukan backup list folder otomatis diperbarui
