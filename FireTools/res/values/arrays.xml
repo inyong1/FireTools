@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+<array name="pilihanHapusFolderNandroidBackup">
+	<item>Hapus (delete) file backup</item>
+	<item>Lihat (view) file log</item>
+	<item>Batal (cancel)</item>
+</array>
+</resources>

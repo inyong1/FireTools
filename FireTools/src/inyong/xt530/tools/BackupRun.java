@@ -43,7 +43,7 @@ public class BackupRun extends Activity implements OnClickListener
 	private void startBackup()
 	{
 		Intent intent =getIntent();
-		firetask = intent.getStringExtra(backupMain.TASK_CODE);
+		firetask = intent.getStringExtra(DaftarFileNandroidBackupActivity.TASK_CODE);
 		if (RootTools.isAccessGiven())
 		{
 			new Thread(new Runnable(){@Override

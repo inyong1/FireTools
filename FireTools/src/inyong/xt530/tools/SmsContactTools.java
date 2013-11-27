@@ -84,7 +84,7 @@ public class SmsContactTools extends Activity implements OnClickListener
 		lv = (ListView) findViewById(R.id.id_lv_backup_sms);
 		listFileBackup = new ArrayList<String>();
 		listFileBackup = fungsi.getLisfFiles(fungsi.folderBackupSms);
-		adapter = new ArrayAdapter(this, R.layout.row_listview_sms_contact_rool, listFileBackup);
+		adapter = new ArrayAdapter(this, R.layout.row_listview_sms_contact_tool, listFileBackup);
 		lv.setAdapter(adapter);
 		tampilkanTextStatus();
 		detekLongClickPadaListView();
@@ -95,7 +95,7 @@ public class SmsContactTools extends Activity implements OnClickListener
 		lv = (ListView) findViewById(R.id.id_lv_backup_contact);
 		listFileBackup = new ArrayList<String>();
 		listFileBackup = fungsi.getLisfFiles(fungsi.folderBackupContact);
-		adapter = new ArrayAdapter(this, R.layout.row_listview_sms_contact_rool, listFileBackup);
+		adapter = new ArrayAdapter(this, R.layout.row_listview_sms_contact_tool, listFileBackup);
 		lv.setAdapter(adapter);
 		tampilkanTextStatus();
 		detekLongClickPadaListView();

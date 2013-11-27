@@ -36,6 +36,9 @@
 			</intent-filter>
 		</activity>
 		<activity
+			android:label="@string/DaftarFileNandroidBackupActivityLabel"
+			android:name=".DaftarFileNandroidBackupActivity"/>
+		<activity
 			android:label="Your Backup Files List"
 			android:name=".backupMain"/>
 		<activity
@@ -51,6 +54,9 @@
 		<activity
 			android:label="Membuat Link Folder Data Aplikasi"
 			android:name=".CreateLinkData"/>
+				<activity
+			android:label="Membuat Link Folder Data Aplikasi"
+			android:name=".BuatLinkFolderData"/>
 		<activity
 			android:name=".About"
 			android:theme="@android:style/Theme.NoTitleBar.Fullscreen"
@@ -59,6 +65,11 @@
 		<activity
 			android:label="BackUp and Restore Tool for SMS and Contact"
 			android:name=".SmsContactTools"
+			android:theme="@android:style/Theme.NoTitleBar"
+		/>
+		<activity
+			android:label="Nandroid Backup Log"
+			android:name=".PembukaFileLogBackup"
 			android:theme="@android:style/Theme.NoTitleBar"
 		/>
 

@@ -1,16 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="versi">v2.3</string>
-		<string name="pembuat">
-			Created by inyong (XT530 user)
-			\nModded by (your name here)
-			\nDonasi : Kirim pulsa ke 081809010218"
-		</string>
+	<string name="versi">v2.4.1</string>
+	<string name="pembuat">
+		Created by inyong (NIC Catfiz:2ED3D003F4)
+		\nModded by (your name here)
+		\nDonasi : Kirim pulsa ke 081809010218"
+	</string>
 	<string name="logupdate">
 		Perubahan :
 		\n-------------
 		\n
 		\nAlhamdulillah
+		\n
+		\nV2.4
+		\n-Penambahan binary mkyaffs2image
+		\n-Buat user yang HHnya belum memiliki binary mkyaffs2image di dalam folder /system/bin akan diinstall otomatis oleh Firetools.
 		\n
 		\nV2.3
 		\n-Percobaan perbaikan fungsi link data aplikasi (2).
@@ -22,7 +26,7 @@
 		\nV2.1
 		\n-Bug fc saat masuk menu nandroid backup solved.
 		\n-Saat proses nandroid backup fungsi tombol back dinonaktifkan.
-		
+
 		\n
 		\nv2.0
 		\n-Penambahan fungsi Restart Cepat
@@ -42,5 +46,5 @@
 		\n
 		\n- Salam oprekkers...!")
 	</string>
-	
+
 </resources>

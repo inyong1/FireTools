@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+	<string name="textTombolCreateNandroidBackup">Buat (Create) Nandroid Backup</string>
+	<string name="DaftarFileNandroidBackupActivityLabel">Daftar (List) File Nandroid Backup</string>
+	<string name="fileBackupTidakDitemukan">\n\n\nFile backup tidak ditemukan\n(Backup file not found)</string>
+</resources>

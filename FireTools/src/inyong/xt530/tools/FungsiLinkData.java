@@ -10,6 +10,39 @@ import com.stericson.RootTools.execution.*;
 
 public class FungsiLinkData
 {
+/////baru
+CommandCapture cmd;
+private List<String> cek;
+String stringHasil ="<unknown>";
+String[] arrayHasil =null;
+	
+	//fungsi mendapatkan rincian folderdata yg terlink
+	public String[] getRincianFolderData(String pathFolderData){
+		try
+		{
+			cek = RootTools.sendShell("busybox ls -ld "+pathFolderData, 0);
+			arrayHasil=cek.get(0).split(" ");
+			
+		}
+		catch (Exception e)
+		{}
+		return arrayHasil;
+	}
+	
+	//fungsi ukur size folder data
+	public String getSizeFolder(String pathFolder){
+		try
+		{
+			cek = RootTools.sendShell("busybox du -hs "+pathFolder, 0);
+			arrayHasil=cek.get(0).split("/");
+			stringHasil = arrayHasil[0];
+		}
+		catch (Exception e)
+		{}
+		return stringHasil;
+	}
+/////// akhir baru
+
 
 	List<String> listLs= new ArrayList<String>();
 
@@ -159,15 +192,15 @@ public class FungsiLinkData
 		String hasil="";
 		if (l > 1048575)
 		{
-			hasil = "(" + l / 1048576 + " MB)";	
+			hasil = l / 1048576 + " MB";	
 		}
 		else if (l > 1023)
 		{
-			hasil = "(" + l / 1024 + " KB)";
+			hasil = l / 1024 + " KB";
 		}
 		else
 		{
-			hasil = "(" + l + " B)";
+			hasil = l + " B";
 		}
 		return hasil;
 	}
@@ -181,6 +214,7 @@ public class FungsiLinkData
 		return hasil;
 	}
 
+	//fungsi link folder data 
 	public void link(String folderName)
 	{
 		CommandCapture cmd;
