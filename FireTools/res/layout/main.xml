@@ -17,7 +17,7 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
 				android:clickable="true"
-				android:background="#333333"
+				android:background="@drawable/list_view_selector"
 				
 				android:padding="5dip"
 				android:gravity="center_vertical">
@@ -50,48 +50,12 @@
 				android:background="#555555"/>
 				
 			<LinearLayout
-				android:id="@+id/layout_link_folder_data"
-				android:layout_width="match_parent"
-				android:layout_height="wrap_content"
-				android:orientation="horizontal"
-				android:clickable="true"
-				android:background="#000000"
-				android:padding="5dip"
-				android:gravity="center_vertical">
-				<ImageView
-					android:layout_width="50dp"
-					android:gravity="center"
-					android:layout_height="wrap_content"
-					android:src="@drawable/ic_link"/>
-				<LinearLayout
-					android:layout_width="match_parent"
-					android:layout_height="wrap_content"
-					android:orientation="vertical"
-					android:paddingLeft="3dp">
-					<TextView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:text="Create Link Application\'s Data "
-						android:textStyle="bold"
-						android:textColor="#339933"
-						android:textSize="18dp"/>
-					<TextView
-						android:layout_width="match_parent"
-						android:layout_height="wrap_content"
-						android:text="Link-an folder data aplikasi-aplikasi agar memori internal lebih kosong"/>
-				</LinearLayout>
-			</LinearLayout>
-			<View
-				android:layout_width="match_parent"
-				android:layout_height="1dp"
-				android:background="#555555"/>
-			<LinearLayout
 				android:id="@+id/layout_buat_link_folder_data"
 				android:layout_width="match_parent"
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
 				android:clickable="true"
-				android:background="#000000"
+				android:background="@drawable/list_view_selector"
 				android:padding="5dip"
 				android:gravity="center_vertical">
 				<ImageView
@@ -107,7 +71,7 @@
 					<TextView
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
-						android:text="Create Link Application\'s Data \n(Percobaan)"
+						android:text="Create Link Application\'s Data"
 						android:textStyle="bold"
 						android:textColor="#339933"
 						android:textSize="18dp"/>
@@ -127,7 +91,7 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
 				android:clickable="true"
-				android:background="#333333"
+				android:background="@drawable/list_view_selector"
 				android:padding="5dip"
 				android:gravity="center_vertical">
 				<ImageView
@@ -163,7 +127,7 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
 				android:clickable="true"
-				android:background="#000000"
+				android:background="@drawable/list_view_selector"
 				android:padding="5dip"
 				android:gravity="center_vertical">
 				<ImageView
@@ -199,7 +163,7 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
 				android:clickable="true"
-				android:background="#333333"
+				android:background="@drawable/list_view_selector"
 				android:padding="5dip"
 				android:gravity="center_vertical">
 				<ImageView
@@ -235,7 +199,7 @@
 				android:layout_height="wrap_content"
 				android:orientation="horizontal"
 				android:clickable="true"
-				android:background="#000000"
+				android:background="@drawable/list_view_selector"
 				android:padding="5dip"
 				android:gravity="center_vertical">
 				<ImageView

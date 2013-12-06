@@ -51,9 +51,6 @@
 		<activity
 			android:label="Clear Residual File"
 			android:name=".ClearSystemLog"/>
-		<activity
-			android:label="Membuat Link Folder Data Aplikasi"
-			android:name=".CreateLinkData"/>
 				<activity
 			android:label="Membuat Link Folder Data Aplikasi"
 			android:name=".BuatLinkFolderData"/>

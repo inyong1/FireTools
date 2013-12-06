@@ -1,4 +1,4 @@
-package inyong.xt530.tools;
+package inyong.xt530.tools.fungsiFungsi;
 
 import android.app.*;
 import android.os.*;
@@ -16,7 +16,8 @@ import java.util.*;
 public class FungsiBackupSmsContact
 {
 	String folderBackup;
-	String folderBackupSms, folderBackupContact;
+ public	String folderBackupSms;
+ public	String folderBackupContact;
 	String fileSms, fileContact;
 	String folderDataData;
 	String TanggalDanJam;

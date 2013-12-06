@@ -55,7 +55,7 @@ public class ItemDetils
 	}
 
 	// detils untuk list aplikasi pada fungsi create link data
-	private String namaAplikasi, namaFolderData, folderData, sizeFolderData, statusOnInternal, statusTerlink;
+	private String namaAplikasi, namaFolderData, folderData="", sizeFolderData, statusOnInternal="", statusTerlink="";
 //	private long size;
 //	private boolean linked;
 	private Drawable icon;

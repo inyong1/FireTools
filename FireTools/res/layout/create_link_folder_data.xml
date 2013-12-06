@@ -1,9 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
 	android:layout_width="fill_parent"
 	android:layout_height="fill_parent"
-	
-	android:orientation="vertical" >
+	android:orientation="vertical">
+
 	<TextView
 		android:id="@+id/id_tv_buatlink_folderata"
 		android:paddingLeft="5dp"
@@ -14,17 +15,39 @@
 		android:textStyle="bold"
 		android:textColor="#aa8800"
 		android:layout_height="wrap_content"
-		android:textSize="10sp"
-	/>
+		android:textSize="10sp"/>
+
 	<ListView
 		android:id="@+id/id_listview_buat_link_folderdata"
 		android:layout_width="match_parent"
 		android:layout_weight="1"
-		
-		android:layout_height="wrap_content"/>
-<!--	<Button
-		android:id="@+id/id_tombol_link_data"
-		android:layout_width="match_parent"
+		android:layout_height="0dp"
+		android:listSelector="@drawable/list_view_selector"/>
+
+	<LinearLayout
 		android:layout_height="wrap_content"
-		android:text="TEST"/>   -->
-</LinearLayout> 
+		android:layout_width="match_parent"
+		android:orientation="horizontal"
+		android:background="#003300">
+
+		<Button
+			android:layout_height="wrap_content"
+			style="?android:attr/buttonStyleSmall"
+			android:text="User App"
+			android:layout_width="0dp"
+			android:id="@+id/id_create_link_data_tombol_userapp"
+			android:layout_weight="1"/>
+
+		<Button
+			android:layout_height="wrap_content"
+			style="?android:attr/buttonStyleSmall"
+			android:text="System App"
+			android:layout_width="0dp"
+			android:id="@+id/id_create_link_data_tombol_systemapp"
+			android:layout_weight="1"/>
+
+	</LinearLayout>
+
+</LinearLayout>
+
+

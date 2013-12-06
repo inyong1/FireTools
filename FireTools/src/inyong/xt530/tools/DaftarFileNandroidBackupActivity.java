@@ -8,6 +8,7 @@ import android.widget.*;
 import com.stericson.RootTools.*;
 import com.stericson.RootTools.execution.*;
 import inyong.xt530.tools.adapter.*;
+import inyong.xt530.tools.fungsiFungsi.*;
 import java.io.*;
 import java.util.*;
 
@@ -115,15 +116,15 @@ public class DaftarFileNandroidBackupActivity extends Activity
 			totalUkuran = 0;
 			for (String str : folder.list())
 			{
-				if (str.equals("system.yaffs2.img") || str.equals("data.yaffs2.img") || str.contains("sd-ext"))
+				if (str.equals("system.yaffs2.img") || str.equals("data.yaffs2.img") || str.contains("sd-ext") || str.contains("recovery") || str.contains("boot"))
 				{
 					temp = new File(path + "/" + s + "/" + str).length();
 					totalUkuran += temp;
-					fileBackup.appendRincian(str + " : " + fungsiLinkData.longToStringSize(temp) + " (" + temp + " bytes)");
+					fileBackup.appendRincian(str + " : " + longToStringSize(temp) + " (" + temp + " B)");
 				}
 			}
 
-			fileBackup.setTotal("Total : " + fungsiLinkData.longToStringSize(totalUkuran) + " (" + totalUkuran + " bytes)");
+			fileBackup.setTotal("Total : " + longToStringSize(totalUkuran) + " (" + totalUkuran + " B)");
 			hasil.add(fileBackup);
 		}
 
@@ -174,7 +175,7 @@ public class DaftarFileNandroidBackupActivity extends Activity
 							hapusFolderTerpilih(posisi);
 							break;
 						case 1:
-						bukaLogFile(posisi);
+							bukaLogFile(posisi);
 							break;
 
 						default : break;
@@ -333,13 +334,71 @@ public class DaftarFileNandroidBackupActivity extends Activity
 					}
 				}}).start();
 	}
-	
+
 	public static String FOLDER_TERPILIH;
-	private void bukaLogFile(int posisiLvItem){
-		Object o=lv.getItemAtPosition( posisiLvItem);
+	private void bukaLogFile(int posisiLvItem)
+	{
+		Object o=lv.getItemAtPosition(posisiLvItem);
 		ItemDetils item= (ItemDetils) o;
 		Intent i = new Intent(getApplicationContext(), PembukaFileLogBackup.class);
 		i.putExtra(FOLDER_TERPILIH, item.getJudul());
 		startActivity(i);
+	}
+
+	//fungsi menambahkan koma(titik) pada file size
+	public String longToStringSize(long l)
+	{
+		String hasil ="";
+		String temp;
+		double faktorKali=1.0;
+		long kb = 1024, mb = kb * 1024, gb =mb * 1024;
+		double masukan = l * faktorKali;
+		if (masukan >= gb)
+		{
+			temp = masukan / gb + "GB";
+		}
+		else if (masukan >= mb)
+		{
+			temp = masukan / mb + "MB";
+		}
+		else if (masukan >= kb)
+		{
+			temp = masukan / kb + "KB";
+		}
+		else
+		{
+			temp = masukan + "B";
+		}
+
+
+		StringBuffer sb= new StringBuffer();
+		int posisiTitik =-1;
+		for (int i =0; i < temp.length(); i++)
+		{
+			if (temp.charAt(i) == '.')
+			{
+				posisiTitik = i;
+				break;
+			}
+		}
+		for (int i = 0; i <= (posisiTitik + 1); i++)
+		{
+			sb.append(temp.charAt(i));
+		}
+
+		if (Character.isDigit(temp.charAt(temp.length() - 2)))
+		{
+			sb.append(" ");
+			sb.append(temp.charAt(temp.length() - 1));
+		}
+		else
+		{
+			sb.append(" ");
+			sb.append(temp.charAt(temp.length() - 2));
+			sb.append(temp.charAt(temp.length() - 1));
+		}
+
+		hasil= sb.toString();
+		return hasil;
 	}
 }

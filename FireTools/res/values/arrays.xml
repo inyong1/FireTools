@@ -1,8 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-<array name="pilihanHapusFolderNandroidBackup">
-	<item>Hapus (delete) file backup</item>
-	<item>Lihat (view) file log</item>
-	<item>Batal (cancel)</item>
-</array>
+	<array name="pilihanHapusFolderNandroidBackup">
+		<item>Hapus (delete) file backup</item>
+		<item>Lihat (view) file log</item>
+		<item>Batal (cancel)</item>
+	</array>
+	<array name="pilihanBuatLinkPadaListCreateLinkData">
+		<item>Buat link folder data\n(Create link)</item>
+		<item>Jalankan Aplikasi\n(Launch app)</item>
+		<item>Batal\n(Cancel)</item>
+
+	</array>
+
+	<array name="pilihanHapusLinkPadaListCreateLinkData">
+		<item>Hapus link folder data\n(Delete link/Restore)</item>
+		<item>Jalankan Aplikasi\n(Launch app)</item>
+		<item>Batal\n(Cancel)</item>
+
+	</array>
 </resources>

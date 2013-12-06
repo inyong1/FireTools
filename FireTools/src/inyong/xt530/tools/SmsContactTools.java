@@ -8,6 +8,7 @@ import android.view.View.*;
 import android.widget.*;
 import java.io.*;
 import java.util.*;
+import inyong.xt530.tools.fungsiFungsi.*;
 
 public class SmsContactTools extends Activity implements OnClickListener
 {

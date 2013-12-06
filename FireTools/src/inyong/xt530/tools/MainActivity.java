@@ -11,11 +11,12 @@ import com.stericson.RootTools.*;
 import com.stericson.RootTools.execution.*;
 import java.util.concurrent.*;
 import com.stericson.RootTools.exceptions.*;
+import inyong.xt530.tools.fungsiFungsi.*;
 
 public class MainActivity extends Activity implements OnClickListener
 {
 	public String  pathData = Environment.getDataDirectory().toString() + "/data/inyong.xt530.tools/data";
-	LinearLayout ly_backup, ly_linkData, lyCreateLinkData, ly_linkDalvik, ly_clearLog, ly_restart, ly_smsContact;
+	LinearLayout ly_backup, lyCreateLinkData, ly_linkDalvik, ly_clearLog, ly_restart, ly_smsContact;
 	boolean cwmInstalled = false, inyongScript = false;
 
     /** Called when the activity is first created. */
@@ -25,7 +26,6 @@ public class MainActivity extends Activity implements OnClickListener
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main);
 		ly_backup     = (LinearLayout) findViewById(R.id.layout_backup_tool);        ly_backup.setOnClickListener(this);
-		ly_linkData   = (LinearLayout) findViewById(R.id.layout_link_folder_data);   ly_linkData.setOnClickListener(this);
 		lyCreateLinkData = (LinearLayout) findViewById(R.id.layout_buat_link_folder_data);lyCreateLinkData.setOnClickListener(this);
 		ly_linkDalvik = (LinearLayout) findViewById(R.id.layout_link_dalvik_system); ly_linkDalvik.setOnClickListener(this);
 		ly_clearLog   = (LinearLayout) findViewById(R.id.layout_clear_system_log);   ly_clearLog.setOnClickListener(this);
@@ -78,7 +78,7 @@ public class MainActivity extends Activity implements OnClickListener
 					case R.id.layout_link_dalvik_system: goToCreateLinkDalvik(); break;
 					case R.id.layout_restart: restart(); break;
 					case R.id.layout_clear_system_log: goToClearLog(); break;
-					case R.id.layout_link_folder_data: goToLinkData(); break;
+				//	case R.id.layout_link_folder_data: goToLinkData(); break;
 					case R.id.layout_buat_link_folder_data: goToCreateLinkData(); break;
 					case R.id.layout_sms_dan_contact_tools: goToSmsContactTools(); break;
 				}
@@ -103,11 +103,11 @@ public class MainActivity extends Activity implements OnClickListener
 		startActivity(new Intent(this, BuatLinkFolderData.class));
 	}
 	
-	private void goToLinkData()
-	{
-		Intent cld = new Intent(this, CreateLinkData.class);
-		startActivity(cld);
-	}
+//	private void goToLinkData()
+//	{
+//		Intent cld = new Intent(this, CreateLinkData.class);
+//		startActivity(cld);
+//	}
 
 	private void goToClearLog()
 	{

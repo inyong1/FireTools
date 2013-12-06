@@ -10,6 +10,7 @@ import com.stericson.RootTools.*;
 import com.stericson.RootTools.execution.*;
 import java.util.concurrent.*;
 import com.stericson.RootTools.exceptions.*;
+import inyong.xt530.tools.fungsiFungsi.*;
 import java.io.*;
 import java.util.*;
 

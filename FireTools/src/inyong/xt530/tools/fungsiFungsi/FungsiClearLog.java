@@ -1,4 +1,4 @@
-package inyong.xt530.tools;
+package inyong.xt530.tools.fungsiFungsi;
 
 import android.os.*;
 import com.stericson.RootTools.*;

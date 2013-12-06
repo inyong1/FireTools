@@ -1,4 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+	xmlns:android="http://schemas.android.com/apk/res/android"
+	android:layout_height="wrap_content"
+	android:layout_width="match_parent"
+	android:background="@drawable/list_view_selector"
+	android:padding="5dp">
+
+	<ImageView
+		android:layout_height="48dp"
+		android:layout_width="48dp"
+		android:layout_alignParentLeft="true"
+		android:layout_centerVertical="true"
+		android:id="@+id/id_imageview_createlinkdata_iconapp"
+		android:layout_marginRight="3dp"/>
+
+	<TextView
+		android:id="@+id/id_tv_row_lv_createlinkdata_namaaplikasi"
+		android:textStyle="bold"
+		android:textSize="18sp"
+		android:textColor="@color/warnaTulisanIjo"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:layout_alignParentTop="true"
+		android:layout_below="@id/id_imageview_createlinkdata_iconapp"
+		android:layout_toRightOf="@id/id_imageview_createlinkdata_iconapp"/>
+
+	<TextView
+		android:id="@+id/id_tv_row_lv_createlinkdata_ukurandata"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textStyle="bold"
+		android:textSize="13sp"
+		android:textColor="#ff22f7b8"
+		android:layout_below="@id/id_tv_row_lv_createlinkdata_namaaplikasi"
+		android:layout_toRightOf="@id/id_imageview_createlinkdata_iconapp"/>
+
+	<TextView
+		android:id="@+id/id_tv_row_lv_createlinkdata_folderdata"
+		android:layout_width="wrap_content"
+		android:textSize="13sp"
+		android:layout_height="wrap_content"
+		android:textColor="#bbbbbb"
+		android:layout_below="@id/id_tv_row_lv_createlinkdata_ukurandata"
+		android:layout_toRightOf="@id/id_imageview_createlinkdata_iconapp"/>
+
+	<TextView
+		android:id="@+id/id_tv_row_lv_createlinkdata_status_oninternal"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textStyle="bold"
+		android:textSize="13sp"
+		android:textColor="#fff98c22"
+		android:layout_alignParentRight="true"
+		android:layout_alignTop="@id/id_tv_row_lv_createlinkdata_ukurandata"/>
+
+	<TextView
+		android:id="@+id/id_tv_row_lv_createlinkdata_status_terlink"
+		android:layout_width="wrap_content"
+		android:layout_height="wrap_content"
+		android:textStyle="bold"
+		android:textSize="13sp"
+		android:textColor="#ff1cff52"
+		android:layout_alignParentRight="true"
+		android:layout_alignTop="@id/id_tv_row_lv_createlinkdata_ukurandata"/>
+
+</RelativeLayout>
+
+
+
+<!-- <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
 	android:layout_width="match_parent"
 	android:layout_height="wrap_content"
@@ -61,4 +131,4 @@
 	</LinearLayout>
 </LinearLayout>
 
-
+-->

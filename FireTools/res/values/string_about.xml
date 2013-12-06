@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="versi">v2.4.1</string>
+	<string name="versi">v2.5.1</string>
 	<string name="pembuat">
 		Created by inyong (NIC Catfiz:2ED3D003F4)
 		\nModded by (your name here)
@@ -11,6 +11,11 @@
 		\n-------------
 		\n
 		\nAlhamdulillah
+		\n
+		\nV2.5.1
+		\n-
+		\nV2.5
+		\n-Perubahan User Interface pada create link data
 		\n
 		\nV2.4
 		\n-Penambahan binary mkyaffs2image
