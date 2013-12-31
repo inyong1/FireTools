@@ -15,14 +15,15 @@
 	<uses-permission android:name="android.permission.WAKE_LOCK"/>
 	<uses-permission android:name="android.permission.READ_SMS"/>
 	<uses-permission android:name="android.permission.WRITE_SMS"/>
+	<uses-permission android:name="android.permission.RECEIVE_BOOT_COMPLETED" />
 
-	<supports-screens 
-		largeScreens="true" 
-		normalScreens="true" 
-		anyDensity="true" 
-		xlargeScreens="true" 
-		smallScreens="true">
-	</supports-screens>
+
+	<supports-screens
+		android:smallScreens="true"
+		android:normalScreens="true"
+		android:largeScreens="true"
+		android:anyDensity="true"
+	/>
 
 	<application
 		android:icon="@drawable/ic_launcher"
@@ -51,7 +52,7 @@
 		<activity
 			android:label="Clear Residual File"
 			android:name=".ClearSystemLog"/>
-				<activity
+		<activity
 			android:label="Membuat Link Folder Data Aplikasi"
 			android:name=".BuatLinkFolderData"/>
 		<activity
@@ -69,7 +70,25 @@
 			android:name=".PembukaFileLogBackup"
 			android:theme="@android:style/Theme.NoTitleBar"
 		/>
+		<activity
+			android:label="Battery Tool"
+			android:name=".BatteryTool"
+		/>
 
+		<receiver
+			android:name=".BootCompletedReceiver"
+			android:enabled="true"
+			android:exported="false"
+			android:label="BootCompletedReceiver"
+		>
+			<intent-filter>
+				<action android:name="android.intent.action.BOOT_COMPLETED" />
+			</intent-filter>
+		</receiver>
+
+		<service 
+			android:name=".FireToolsService"
+			android:label="FireTools Service"/>
 	</application>
 
 </manifest>

@@ -15,8 +15,11 @@ import inyong.xt530.tools.fungsiFungsi.*;
 
 public class MainActivity extends Activity implements OnClickListener
 {
+
+
+//-----------
 	public String  pathData = Environment.getDataDirectory().toString() + "/data/inyong.xt530.tools/data";
-	LinearLayout ly_backup, lyCreateLinkData, ly_linkDalvik, ly_clearLog, ly_restart, ly_smsContact;
+	LinearLayout ly_backup, lyCreateLinkData, ly_linkDalvik, ly_clearLog, ly_restart, ly_smsContact, ly_batteryTool;
 	boolean cwmInstalled = false, inyongScript = false;
 
     /** Called when the activity is first created. */
@@ -31,7 +34,11 @@ public class MainActivity extends Activity implements OnClickListener
 		ly_clearLog   = (LinearLayout) findViewById(R.id.layout_clear_system_log);   ly_clearLog.setOnClickListener(this);
 	    ly_restart    = (LinearLayout) findViewById(R.id.layout_restart);            ly_restart.setOnClickListener(this);
 		ly_smsContact = (LinearLayout) findViewById(R.id.layout_sms_dan_contact_tools); ly_smsContact.setOnClickListener(this);
+		ly_batteryTool = (LinearLayout) findViewById(R.id.layout_battery_tool); ly_batteryTool.setOnClickListener(this);
 		buatFolderData();
+
+		//------
+		jalankanFiretoolsService();
     }
 
 	private void buatFolderData()
@@ -78,9 +85,11 @@ public class MainActivity extends Activity implements OnClickListener
 					case R.id.layout_link_dalvik_system: goToCreateLinkDalvik(); break;
 					case R.id.layout_restart: restart(); break;
 					case R.id.layout_clear_system_log: goToClearLog(); break;
-				//	case R.id.layout_link_folder_data: goToLinkData(); break;
+						//	case R.id.layout_link_folder_data: goToLinkData(); break;
 					case R.id.layout_buat_link_folder_data: goToCreateLinkData(); break;
 					case R.id.layout_sms_dan_contact_tools: goToSmsContactTools(); break;
+					case R.id.layout_battery_tool: goToBatteryTool(); break;
+					default: break;
 				}
 			}
 			else
@@ -99,15 +108,16 @@ public class MainActivity extends Activity implements OnClickListener
 		startActivity(new Intent(this, SmsContactTools.class));
 	}
 
-	private void goToCreateLinkData(){
+	private void goToCreateLinkData()
+	{
 		startActivity(new Intent(this, BuatLinkFolderData.class));
 	}
-	
-//	private void goToLinkData()
-//	{
-//		Intent cld = new Intent(this, CreateLinkData.class);
-//		startActivity(cld);
-//	}
+
+	private void goToBatteryTool()
+	{
+//	dialogError("Battery Tool", "Under Construction");
+		startActivity(new Intent(this, BatteryTool.class));
+	}
 
 	private void goToClearLog()
 	{
@@ -123,9 +133,9 @@ public class MainActivity extends Activity implements OnClickListener
 
 	private void goToBackup()
 	{
-	//	Intent backup = new Intent(this, backupMain.class);
-	//	startActivity(backup);
-	startActivity(new Intent(this,DaftarFileNandroidBackupActivity.class));
+		//	Intent backup = new Intent(this, backupMain.class);
+		//	startActivity(backup);
+		startActivity(new Intent(this, DaftarFileNandroidBackupActivity.class));
 	};
 
 	//fungsi restart
@@ -198,7 +208,7 @@ public class MainActivity extends Activity implements OnClickListener
 
 	private void restartCepat()
 	{
-		
+
 		if (RootTools.isAccessGiven())
 		{
 			ProgressDialog.Builder pd = new ProgressDialog.Builder(this);
@@ -208,7 +218,7 @@ public class MainActivity extends Activity implements OnClickListener
 			new Thread(new Runnable(){@Override 
 					public void run()
 					{
-					RootTools.restartAndroid();
+						RootTools.restartAndroid();
 					}}).start();
 		}
 		else
@@ -296,5 +306,17 @@ public class MainActivity extends Activity implements OnClickListener
 	{
 		Intent about = new Intent(this, About.class);
 		startActivity(about);
+	}
+
+	private void jalankanFiretoolsService()
+	{
+		SharedPreferences setinganKu = getSharedPreferences(FungsiSettings.NAMA_SETINGAN, MODE_PRIVATE);
+		boolean serviceDimatikan =setinganKu.getBoolean(FungsiSettings.NAMA_SERVICE_DIMATIKAN, false);
+		if (serviceDimatikan)
+		{}
+		else
+		{
+			startService(new Intent(this, FireToolsService.class));	
+		}
 	}
 }

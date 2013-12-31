@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="versi">v2.5.1</string>
+	<string name="versi">v3.0.9</string>
 	<string name="pembuat">
 		Created by inyong (NIC Catfiz:2ED3D003F4)
 		\nModded by (your name here)
@@ -11,6 +11,28 @@
 		\n-------------
 		\n
 		\nAlhamdulillah
+		\n
+		\nV3.0.9
+		\n-Icon battery sampai 114
+		\n
+		\nV3.0.8
+		\n-Koreksi perhitungan level battery
+		\n
+		\nV3.0.6
+		\n-FUNGSI LOGGING
+		\n bantu saya membuat prosentase lebih akurat dengan menghidupkan fungsi logging gunakan hh dari 100 persen sampai 0 persen lalu kirim file lognya ke saya. Filenya ada di /sdcard/FireTools/Log/BatteryTool.log
+		\n-Pendeteksi screen on ditiadakan kembali (udah ada solusi)
+		\n
+		\nV3.0.5
+		\n-percobaan metode berbeda pada perhitungan level battery agar lebih singkron dengan level asli
+		\n
+		\nV3.0.1
+		\n-Setiap layar menyala broadcast receiver diregister ulang.
+		\n
+		\nV.3.0_beta
+		\n-battery bar
+		\n-(bug) kadang kalau ram penuh aplikasinya berhenti menerima pesan broadcast dari system sehingga notifikasi di status bar tidak update dan harus masuk ke aplikasi firetool agar broadcast receivernya ter-refresh.
+		\n-(bug) level battery bar tidak 100% singkron dengan level stock battery bar.
 		\n
 		\nV2.5.1
 		\n-

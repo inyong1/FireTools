@@ -18,4 +18,8 @@
 		<item>Batal\n(Cancel)</item>
 
 	</array>
+
+	<array name="battery_icon">
+		<item>R.drawable.b</item>
+	</array>
 </resources>

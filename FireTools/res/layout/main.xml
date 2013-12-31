@@ -206,7 +206,7 @@
 					android:layout_width="50dp"
 					android:gravity="center"
 					android:layout_height="wrap_content"
-					android:src="@drawable/sms_contact"/>
+					android:src="@drawable/ic_sms_contact_tool"/>
 				<LinearLayout
 					android:layout_width="match_parent"
 					android:layout_height="wrap_content"
@@ -223,6 +223,42 @@
 						android:layout_width="match_parent"
 						android:layout_height="wrap_content"
 						android:text="Backup and Restore SMS and Contact to SDcard,"/>
+				</LinearLayout>
+			</LinearLayout>
+			<View
+				android:layout_width="match_parent"
+				android:layout_height="1dp"
+				android:background="#555555"/> 
+			<LinearLayout
+				android:id="@+id/layout_battery_tool"
+				android:layout_width="match_parent"
+				android:layout_height="wrap_content"
+				android:orientation="horizontal"
+				android:clickable="true"
+				android:background="@drawable/list_view_selector"
+				android:padding="5dip"
+				android:gravity="center_vertical">
+				<ImageView
+					android:layout_width="50dp"
+					android:gravity="center"
+					android:layout_height="wrap_content"
+					android:src="@drawable/ic_battery_tool"/>
+				<LinearLayout
+					android:layout_width="match_parent"
+					android:layout_height="wrap_content"
+					android:orientation="vertical"
+					android:paddingLeft="3dp">
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="Battery Tool"
+						android:textStyle="bold"
+						android:textColor="#339933"
+						android:textSize="18dp"/>
+					<TextView
+						android:layout_width="match_parent"
+						android:layout_height="wrap_content"
+						android:text="1% battery bar, battery info, charging/discharging speed"/>
 				</LinearLayout>
 			</LinearLayout>
 			<View
