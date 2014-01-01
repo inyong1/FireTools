@@ -8,6 +8,8 @@ import inyong.xt530.tools.fungsiFungsi.*;
 
 public class FireToolsService extends Service
 {
+
+//private final Handler handler=new Handler();
 //------------------
 	private Context appContext;
 	//private BroadcastReceiver batteryInfoReceiver;
@@ -45,6 +47,7 @@ public class FireToolsService extends Service
 			sehat          = p2.getIntExtra(BatteryManager.EXTRA_HEALTH, 0);
 			jenisCharger   = p2.getIntExtra(BatteryManager.EXTRA_PLUGGED, 0);
 			persen = fService.getPercent(batteryVoltage, stockLevel);
+	//	persen=108;
 			judulNotifikasi = intVoltToString(batteryVoltage) + " / " + intStatusToString(status, jenisCharger, batteryVoltage);
 			isiNotifikasi = intSuhuToString(suhu) + " / " + intSehatToString(sehat) + logAktif;
 		
@@ -70,6 +73,13 @@ public class FireToolsService extends Service
 				logAktif = "";
 			} 
 			buatNotifikasi();
+			// buat notifikasi saat battery full charged
+	/*		if(persen >=108){
+				handler.post(new Runnable(){@Override
+				public void run(){
+				tampilkanBatteryFullAlarm();
+			}});
+			}  */
 		}
 	};
 	//-------------
@@ -117,7 +127,8 @@ public class FireToolsService extends Service
 
 	private void buatNotifikasi()
 	{
-		notifikasi = new Notification(fService.batteryIcon[persen], null, System.currentTimeMillis());
+			notifikasi = new Notification(R.drawable.b000+persen, null, System.currentTimeMillis());
+	//	notifikasi = new Notification(fService.batteryIcon[persen], null, System.currentTimeMillis());
 		//	notifikasi = new Notification(R.drawable.b110, null, System.currentTimeMillis()); //percobaan
 		notifikasi.flags |= Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
 		notifikasi.setLatestEventInfo(appContext, judulNotifikasi, isiNotifikasi, pendingIntent);
@@ -252,5 +263,19 @@ public class FireToolsService extends Service
 		}
 		
 		return hasil;
+	}
+	
+	//fungsi alarm battery full charged
+	private void tampilkanBatteryFullAlarm(){
+		AlertDialog.Builder alert = new AlertDialog.Builder(getApplicationContext());
+		alert.setCancelable(true);
+		alert.setTitle("Battery Full Charged");
+	//	alert.setIcon(FungsiService.batteryIcon[persen]);
+	//	String v =intVoltToString(batteryVoltage);
+	//	alert.setMessage("Battery voltage :"+v+"\n\n"+
+	//	"Please disconnect the" +intJenisChargeToString(jenisCharger)+" power source"); 
+	//	alert.setPositiveButton("OK",new DialogInterface.OnClickListener(){@Override
+	//	public void onClick(DialogInterface d, int i){}});
+		alert.show();
 	}
 }

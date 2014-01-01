@@ -25,10 +25,10 @@ public class FungsiService
 	private final int volt90persen=3992;
 	private final int volt100persen=4100; // udah fix
 
-	public static final int[] batteryIcon=new int[117];
+//	public static final int[] batteryIcon=new int[117]; // ternyata gak perlu bikin array[] icon
 	public FungsiService()
 	{
-		batteryIcon[0] = R.drawable.b000;
+/*		batteryIcon[0] = R.drawable.b000;
 		batteryIcon[1] = R.drawable.b001;
 		batteryIcon[2] = R.drawable.b002;
 		batteryIcon[3] = R.drawable.b003;
@@ -145,7 +145,7 @@ public class FungsiService
 		batteryIcon[114] = R.drawable.b114;
 		batteryIcon[115] = R.drawable.b115;
 		batteryIcon[116] = R.drawable.b116;
-
+*/
 
 		fString = Environment.getExternalStorageDirectory().toString() + "/FireTools/Log";
 		f = new File(fString);
@@ -180,9 +180,10 @@ public class FungsiService
 	public int getPercent(int voltage, int stockLevel)
 	{
 		int hasil=0;
-		int rentangVoltage=volt100persen - volt0persen;
+		// dipukul rata dari 0-100% //// ane rasa gak usah pke ini lagi
+/*		int rentangVoltage=volt100persen - volt0persen;
 		hasil = ((voltage - volt0persen) * 100) / rentangVoltage; 
-
+*/ 
 		//cara baru
 		if (stockLevel == 0)
 		{
