@@ -5,6 +5,7 @@ import android.content.*;
 import android.os.*;
 import android.widget.*;
 import inyong.xt530.tools.fungsiFungsi.*;
+import android.graphics.drawable.*;
 
 public class FireToolsService extends Service
 {
@@ -17,7 +18,11 @@ public class FireToolsService extends Service
 	private boolean receiverSudahTerdaftar=false;
 //-------------------
 	private NotificationManager notifikasiManajer;
-	private Notification notifikasi;
+	private static int ikonNotifikasi = R.anim.c000;
+	private static  Notification notifikasi;// =new Notification(ikonNotifikasi,null,System.currentTimeMillis());
+	private static boolean charging = false;
+	//----------------
+	
 	private String judulNotifikasi=null;
 	private String isiNotifikasi=null;
 	private Intent intent;
@@ -83,6 +88,27 @@ public class FireToolsService extends Service
 		}
 	};
 	//-------------
+	
+	private void buatNotifikasi()
+	{
+		if(charging){
+			ikonNotifikasi = R.anim.c000 + persen;
+		}else{
+			ikonNotifikasi = R.drawable.b000 + persen;
+		}
+		
+			notifikasi = new Notification(ikonNotifikasi, null, System.currentTimeMillis());
+		//	notifikasi = new Notification(fService.batteryIcon[persen], null, System.currentTimeMillis());
+		//	notifikasi = new Notification(R.anim.c000 , null, System.currentTimeMillis()); //percobaan
+	
+		notifikasi.flags |= Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
+		notifikasi.setLatestEventInfo(appContext, judulNotifikasi, isiNotifikasi, pendingIntent);
+		notifikasiManajer.notify(notifikasiId, notifikasi);
+	}
+
+	
+	//-------
+	
 	public class LocalBinder extends Binder
 	{
 		FireToolsService getService()
@@ -123,16 +149,6 @@ public class FireToolsService extends Service
 		registerReceiver(batteryInfoReceiver, intentFilterBatChanged);
 		//register pendeteksi screen On
 		//	registerReceiver(screenOnReceiver, intentFilterScreenOn);
-	}
-
-	private void buatNotifikasi()
-	{
-			notifikasi = new Notification(R.drawable.b000+persen, null, System.currentTimeMillis());
-	//	notifikasi = new Notification(fService.batteryIcon[persen], null, System.currentTimeMillis());
-		//	notifikasi = new Notification(R.drawable.b110, null, System.currentTimeMillis()); //percobaan
-		notifikasi.flags |= Notification.FLAG_ONGOING_EVENT | Notification.FLAG_NO_CLEAR;
-		notifikasi.setLatestEventInfo(appContext, judulNotifikasi, isiNotifikasi, pendingIntent);
-		notifikasiManajer.notify(notifikasiId, notifikasi);
 	}
 
 
@@ -233,10 +249,12 @@ public class FireToolsService extends Service
 		if (st == BatteryManager.BATTERY_STATUS_CHARGING)
 		{
 			hasil = "Charging (" + charger + ")";
+			charging =true;
 		}
 		else if (st == BatteryManager.BATTERY_STATUS_DISCHARGING)
 		{
 			hasil = "Discharging";
+			charging=false;
 		}
 		else if (st == BatteryManager.BATTERY_STATUS_FULL)
 		{
@@ -244,14 +262,17 @@ public class FireToolsService extends Service
 			if (batteryVoltage <= 4150)
 			{
 				hasil = "Extra charging (" + charger + ")";
+				charging=true;
 			}
 			if (volt < voltaseSebelumnya){
 				hasil ="(!) Discharging ("+charger+")";
+				charging=false;
 			}
 		}
 		else if (st == BatteryManager.BATTERY_STATUS_NOT_CHARGING)
 		{
 			hasil = "Not charging";
+			charging=false;
 			if (jenisCharger == 0)
 			{
 				hasil = "Discharging";
@@ -260,6 +281,7 @@ public class FireToolsService extends Service
 		else if (st == BatteryManager.BATTERY_STATUS_UNKNOWN)
 		{
 			hasil = "Unknown state";
+			charging=false;
 		}
 		
 		return hasil;

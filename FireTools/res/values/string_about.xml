@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="versi">v3.0.9</string>
+	<string name="versi">v3.1.0</string>
 	<string name="pembuat">
 		Created by inyong (NIC Catfiz:2ED3D003F4)
 		\nModded by (your name here)
@@ -11,6 +11,9 @@
 		\n-------------
 		\n
 		\nAlhamdulillah
+		\n
+		\nV3.1.0
+		\n-Tambahan animasi ikon saat hh dicharge (uji coba).
 		\n
 		\nV3.0.9
 		\n-Icon battery sampai 114
