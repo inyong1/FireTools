@@ -11,23 +11,41 @@ import java.util.concurrent.*;
 
 public class FungsiService
 {
-	private final int volt0persen= 3410;
-	private final int volt5persen= 3506;
-	private final int volt10persen=3626;
-	private final int volt15persen=3653;
-	private final int volt20persen=3678;
-	private final int volt30persen=3701;
-	private final int volt40persen=3722;
-	private final int volt50persen=3753;
-	private final int volt60persen=3796;
-	private final int volt70persen=3852;
-	private final int volt80persen=3914;
-	private final int volt90persen=3992;
-	private final int volt100persen=4100; // udah fix
+	private  int volt0persen= 3410;
+	private  int volt5persen= 3506;
+	private  int volt10persen=3626;
+	private  int volt15persen=3653;
+	private  int volt20persen=3678;
+	private  int volt30persen=3701;
+	private  int volt40persen=3722;
+	private  int volt50persen=3753;
+	private  int volt60persen=3796;
+	private  int volt70persen=3852;
+	private  int volt80persen=3914;
+	private  int volt90persen=3992;
+	private  int volt100persen=4100; // udah fix
 
 	public FungsiService()
 	{
+		String s=Build.BOARD + Build.DEVICE + Build.MODEL + Build.PRODUCT;
+		if (s.contains("XT311") || s.contains("311") || s.contains("XT31"))
+		{
+			volt0persen = 3440;
+			volt5persen = 3471;
+			volt10persen = 3656;
+			volt15persen = 3680;
+			volt20persen = 3703;
+			volt30persen = 3728;
+			volt40persen = 3748;
+			volt50persen = 3779;
+			volt60persen = 3821;
+			volt70persen = 3870;
+			volt80persen = 3925;
+			volt90persen = 4005;
+			volt100persen = 4100; 
+		}
 
+		deviceName=Build.DEVICE;
 		fString = Environment.getExternalStorageDirectory().toString() + "/FireTools/Log";
 		f = new File(fString);
 
@@ -61,7 +79,7 @@ public class FungsiService
 	public int getPercent(int voltage, int stockLevel)
 	{
 		int hasil=0;
-	
+
 		if (stockLevel == 0)
 		{
 			hasil =	Persen(stockLevel, voltage, volt0persen, volt5persen, 5);
@@ -114,6 +132,10 @@ public class FungsiService
 		{
 			hasil =	Persen(stockLevel, voltage, volt100persen, 4200, 14);
 		}
+		else
+		{
+			hasil = stockLevel;
+		}
 
 		if (FungsiSettings.extraLevel)
 		{
@@ -147,14 +169,15 @@ public class FungsiService
 	}
 
 	//keperluan logging
-	String fString;
+	String fString, deviceName="";
 	File f;
 	File batteryLog;
 	FileOutputStream fos;
+	
 
 	public void buatLog(int v, int p, int pr)
 	{
-		String s=new Time(System.currentTimeMillis()) + " " + v + "mV Stock:" + p + "% fTool:" + pr + "%";
+		String s=deviceName+" "+new Time(System.currentTimeMillis()) + " " + v + "mV Stock:" + p + "% fTool:" + pr + "%";
 		/*	try
 		 {
 		 fos.write(s.getBytes());

@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-	<string name="versi">v3.1.0</string>
+	<string name="versi">v3.1.2</string>
 	<string name="pembuat">
 		Created by inyong (NIC Catfiz:2ED3D003F4)
 		\nModded by (your name here)
@@ -12,8 +12,12 @@
 		\n
 		\nAlhamdulillah
 		\n
-		\nV3.1.0
+		\nV3.1.2
+		\n-New one percent battery level calculation methode for xt311 phone.
+		\n
+		\nV3.1.1
 		\n-Tambahan animasi ikon saat hh dicharge (uji coba).
+		\n-Sedikit pembetulan bug
 		\n
 		\nV3.0.9
 		\n-Icon battery sampai 114

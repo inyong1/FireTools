@@ -157,10 +157,10 @@
 		android:layout_height="1dp"
 		android:background="#555555"/>
 		
-	<ImageView
+<!--	<ImageView
 		android:layout_width="match_parent"
 		android:layout_height="wrap_content"
 		android:src="@drawable/b"/>
-
+-->
 </LinearLayout>
 
